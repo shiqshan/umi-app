@@ -25,7 +25,7 @@ const Hero: FC<PageProps> = (props) => {
   console.log(hero.list.filter((item: any) => value == "all" || item.roles.indexOf(value) >= 0));
 
   const onChange = (e: RadioChangeEvent) => {
-    // console.log('radio checked', e.target.value);
+    console.log('radio checked', e.target.value);
     setValue(e.target.value);
     dispatch!({
       type: "hero/save", payload: {
