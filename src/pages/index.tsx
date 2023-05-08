@@ -1,17 +1,13 @@
-import { request, useRequest } from 'umi';
+import { History, request, useRequest } from 'umi';
 import styles from './index.less';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useState } from 'react';
+import { ILoginParams, user_api } from '@/api/user';
 
-interface ILoginParams {
-  username: string;
-  password: string;
-}
-export default function IndexPage() {
+const IndexPage = ({ history }: { history: History }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const onFinish = (values: ILoginParams) => {
-    console.log('Success:', values);
     doLogin({ ...values });
   };
 
@@ -19,15 +15,15 @@ export default function IndexPage() {
     console.log('Failed:', errorInfo);
   };
 
-  const doLogin = async ({ username, password }: ILoginParams) => {
-    setLoading(true);
-    const res = await request('/user/login', {
-      method: 'post',
-      data: { username: username, password: password },
+  const doLogin = ({ username, password }: ILoginParams) => {
+    user_api.login({ username, password }).then((res) => {
+      console.log(res);
+      const { success, data } = res;
+      if (success || true) {
+        setLoading(false);
+        history.push(`/home`);
+      }
     });
-    if (res.success) {
-      setLoading(false);
-    }
   };
 
   return (
@@ -44,42 +40,25 @@ export default function IndexPage() {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item
-            label="用户名"
-            name="username"
-            rules={[{ required: true, message: '请输入用户名' }]}
-          >
+          <Form.Item label="用户名" name="username" rules={[{ required: true, message: '请输入用户名' }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="密码"
-            name="password"
-            rules={[{ required: true, message: '请输入密码' }]}
-          >
+          <Form.Item label="密码" name="password" rules={[{ required: true, message: '请输入密码' }]}>
             <Input.Password />
           </Form.Item>
 
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
-          >
+          <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
             <Checkbox>记住密码</Checkbox>
           </Form.Item>
 
-          <Button
-            type="primary"
-            htmlType="submit"
-            block
-            size={'large'}
-            className={styles.login_btn}
-            loading={loading}
-          >
+          <Button type="primary" htmlType="submit" block size={'large'} className={styles.login_btn} loading={loading}>
             登录
           </Button>
         </Form>
       </div>
     </div>
   );
-}
+};
+
+export default IndexPage;

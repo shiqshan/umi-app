@@ -4,7 +4,11 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  routes: [{ path: '/', component: '@/pages/index' }],
+  routes: [
+    { path: '/', redirect: '/login' },
+    { path: '/login', component: '@/pages/index' },
+    { path: '/home', component: '@/layouts/index' },
+  ],
   fastRefresh: {},
   // 只需要 dev，这么配
   // mfsu: {},
