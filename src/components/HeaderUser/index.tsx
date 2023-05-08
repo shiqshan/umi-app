@@ -20,6 +20,9 @@ const items: MenuProps['items'] = [
         icon: <SettingOutlined />,
     },
     {
+        type: 'divider',
+    },
+    {
         label: '退出登录',
         key: '3',
         icon: <PoweroffOutlined />,
