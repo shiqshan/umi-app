@@ -2,42 +2,22 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb, Space } from 'antd';
 import styles from './index.less';
 import global from '../global.less';
-import { Link } from 'umi';
-import type { MenuProps } from 'antd';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import HeaderUser from '@/components/HeaderUser';
+import MyMenu from '@/menu';
 
 const { Header, Content, Sider, Footer } = Layout;
 
-const menuData = [
-    { route: 'hero', name: '英雄' },
-    { route: 'item', name: '局内道具' },
-    { route: 'summoner', name: '召唤师技能' },
-];
 const BasicLayout = (props: any) => {
     const {
         location: { pathname },
         children,
+        history,
     } = props;
+    console.log('9898', location, children);
 
-    const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-        const key = String(index + 1);
-
-        return {
-            key: `sub${key}`,
-            icon: React.createElement(icon),
-            label: `subnav ${key}`,
-
-            children: new Array(4).fill(null).map((_, j) => {
-                const subKey = index * 4 + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
-            }),
-        };
-    });
-
+    const onSelect = ({ item, key, keyPath }: any) => {
+        history.push(`/${key}`);
+    };
     return (
         <Layout className={styles.main_layout}>
             <Header className={styles.header}>
@@ -57,12 +37,16 @@ const BasicLayout = (props: any) => {
                 {/*    ))}*/}
                 {/*</Menu>*/}
             </Header>
-            {/*<Content style={{ padding: '0 50px' }}>*/}
-            {/*    <div style={{ background: '#fff', padding: 24, minHeight: 280, overflow: 'hidden' }}>{children}</div>*/}
-            {/*</Content>*/}
             <Layout>
-                <Sider width={200} className="site-layout-background">
-                    <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }} items={items2} />
+                <Sider width={230} className="site-layout-background">
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['user/list']}
+                        onSelect={onSelect}
+                        defaultOpenKeys={['user']}
+                        style={{ height: '100%', borderRight: 0 }}
+                        items={MyMenu}
+                    />
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
@@ -71,11 +55,9 @@ const BasicLayout = (props: any) => {
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
                     <Content
-                        className="site-layout-background"
                         style={{
-                            padding: 24,
+                            padding: 16,
                             margin: 0,
-                            minHeight: 280,
                         }}
                     >
                         {children}

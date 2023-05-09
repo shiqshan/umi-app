@@ -21,7 +21,7 @@ const IndexPage = ({ history }: { history: History }) => {
             const { success, data } = res;
             if (success || true) {
                 setLoading(false);
-                history.push(`/home`);
+                history.push(`/user/list`);
             }
         });
     };
