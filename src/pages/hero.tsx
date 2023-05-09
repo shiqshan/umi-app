@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styles from './hero.less';
-import { Radio } from 'antd';
+import { Radio, Input } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import { connect, HeroModelState, ConnectProps } from 'umi';
 
@@ -18,7 +18,8 @@ const heroType = [
 ];
 const Hero: FC<PageProps> = (props) => {
   const { hero, dispatch } = props
-  const [value, setValue] = useState('all');
+  const [value, setValue] = useState<string>('all');
+  const [searchVal, setSearchVal] = useState<string>('');
 
   // console.log(hero.list);
 
@@ -33,6 +34,11 @@ const Hero: FC<PageProps> = (props) => {
       }
     })
   }
+
+  const searchChange = (e: any) => {
+    setSearchVal(e.target.value);
+  }
+
   return (
     <div>
       <h1 className={styles.title}>Page hero</h1>
@@ -44,11 +50,16 @@ const Hero: FC<PageProps> = (props) => {
             </Radio>
           ))}
         </Radio.Group>
+
+        <Input placeholder="输入关键字查找"
+          className={styles.input_s1}
+          onChange={searchChange}
+        />
       </div>
       <ul className={styles.hero_list}>
         {
           hero.list
-            .filter((item: any) => value == "all" || item.roles.indexOf(value) >= 0)
+            .filter((item: any) => (value == "all" || item.roles.indexOf(value) >= 0) && item.keywords.indexOf(searchVal) >= 0)
             .map((item: any) => {
               return (
                 <li key={item.heroId}>
