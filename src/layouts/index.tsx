@@ -13,10 +13,10 @@ const BasicLayout = (props: any) => {
         children,
         history,
     } = props;
-    console.log('9898', location, children);
+    // console.log('9898', location, children);
 
     const onSelect = ({ item, key, keyPath }: any) => {
-        history.push(`/${key}`);
+        history.push(`${key}`);
     };
     return (
         <Layout className={styles.main_layout}>
@@ -41,7 +41,7 @@ const BasicLayout = (props: any) => {
                 <Sider width={230} className="site-layout-background">
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={['user/list']}
+                        defaultSelectedKeys={[pathname]}
                         onSelect={onSelect}
                         defaultOpenKeys={['user']}
                         style={{ height: '100%', borderRight: 0 }}

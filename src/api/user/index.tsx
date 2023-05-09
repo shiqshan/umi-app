@@ -4,7 +4,7 @@
 import { Fetch, FetchApi } from '@/api/util';
 
 //user 接口
-const userBaseApi = 'api/user';
+const userBaseApi = '/api/user';
 
 export interface ILoginParams {
     username: string;
@@ -26,6 +26,8 @@ export interface UserInfo {
 
 export const user_api: {
     login: FetchApi<ILoginParams, UserInfo>;
+    list: FetchApi<unknown, UserInfo[]>;
 } = {
     login: (body) => Fetch(`${userBaseApi}/login`, body),
+    list: () => Fetch(`${userBaseApi}/getUserList`),
 };

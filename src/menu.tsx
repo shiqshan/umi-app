@@ -9,16 +9,17 @@ const MyMenu: MenuProps['items'] = [
         label: `用户管理`,
         children: [
             {
-                key: `user/list`,
+                key: `/user/list`,
                 icon: null,
                 label: `用户列表`,
             },
             {
-                key: `user/detail`,
+                key: `/user/detail`,
                 icon: null,
                 label: `用户详情`,
             },
         ],
     },
 ];
+
 export default MyMenu;
