@@ -58,6 +58,7 @@ const BasicLayout = (props: any) => {
                         style={{
                             padding: 16,
                             margin: 0,
+                            background: '#fff',
                         }}
                     >
                         {children}

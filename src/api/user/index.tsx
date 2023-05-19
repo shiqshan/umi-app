@@ -24,10 +24,24 @@ export interface UserInfo {
     id_sort: number;
 }
 
+export interface AddUserBody {
+    id: string;
+    name: string;
+    address: string;
+    sex: string;
+    tel_number: string;
+    qq?: string;
+    account?: string;
+    password?: string;
+    age: number;
+}
+
 export const user_api: {
     login: FetchApi<ILoginParams, UserInfo>;
     list: FetchApi<unknown, UserInfo[]>;
+    add: FetchApi<AddUserBody, UserInfo[]>;
 } = {
     login: (body) => Fetch(`${userBaseApi}/login`, body),
     list: () => Fetch(`${userBaseApi}/getUserList`),
+    add: (body) => Fetch(`${userBaseApi}/insertUser`, body),
 };
