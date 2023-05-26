@@ -1,5 +1,6 @@
-import React, { ComponentRef, useEffect, useRef, useState } from 'react';
-import { Space, Table, Form, Input, Button } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Space, Table, Form, Input, Button, Popconfirm, message } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { user_api, UserInfo } from '@/api/user';
 import styles from './list.less';
@@ -18,22 +19,29 @@ const List = () => {
 
     const [data, setData] = useState<UserInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [editUserInfo, setEditUserInfo] = useState<UserInfo | null>(null);
+    const [params, setParams] = useState({
+        page: 1,
+        size: 10,
+    });
+    const [total, setTotal] = useState<number>(0);
 
     useEffect(() => {
         getList();
         return () => {
             clearTimeout(timer);
         };
-    }, []);
+    }, [params]);
 
     const getList = () => {
         setLoading(true);
-        user_api.list().then((res) => {
+        user_api.list({ ...params }).then((res) => {
             const { success, data } = res;
             if (success && data) {
                 timer = setTimeout(() => {
                     setLoading(false);
-                    setData(data);
+                    setData(data.list || []);
+                    setTotal(data.total || 0);
                 }, 500);
             }
         });
@@ -71,8 +79,16 @@ const List = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a>编辑</a>
-                    <a>删除</a>
+                    <a onClick={() => editUser(record)}>修改</a>
+                    <Popconfirm
+                        title="确定删除该用户吗?"
+                        onConfirm={() => deleteUser(record.id)}
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        okText="确定"
+                        cancelText="取消"
+                    >
+                        <a>删除</a>
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -80,12 +96,12 @@ const List = () => {
 
     const doSearch = () => {
         const body = form.getFieldsValue(true);
-        getList();
+        setParams({ ...params, ...body });
     };
 
     const reset = () => {
         form.resetFields();
-        getList();
+        setParams({ page: 1, size: 10 });
     };
 
     const addUser = () => {
@@ -93,11 +109,31 @@ const List = () => {
             addRef?.current?.open();
         }
     };
+
+    const editUser = (info: UserInfo) => {
+        if (addRef) {
+            addRef?.current?.open();
+            setEditUserInfo(info);
+        }
+    };
+
+    const deleteUser = (id: string) => {
+        user_api.delete({ id: id }).then((res) => {
+            const { success } = res;
+            if (success) {
+                message.success('删除成功！');
+                getList();
+            } else {
+                message.error('删除失败！');
+            }
+        });
+    };
+
     return (
         <>
             <div className={styles.form}>
                 <Form form={form} layout={'inline'}>
-                    <Form.Item label="姓名" name="username">
+                    <Form.Item label="姓名" name="name">
                         <Input width={200} allowClear />
                     </Form.Item>
                     <Form.Item label="手机号" name="tel_number">
@@ -105,19 +141,35 @@ const List = () => {
                     </Form.Item>
                     <Form.Item>
                         <Space>
-                            <Button onClick={reset}>重置</Button>
                             <Button type={'primary'} onClick={doSearch}>
                                 搜索
                             </Button>
+                            <Button onClick={reset}>重置</Button>
                         </Space>
                     </Form.Item>
                 </Form>
-                <Button type={'primary'} onClick={addUser}>
-                    添加用户
-                </Button>
             </div>
-            <Table columns={columns} dataSource={data} loading={loading} />
-            <AddUser ref={addRef} />
+            <Button type={'primary'} onClick={addUser} className={styles.add_btn}>
+                添加用户
+            </Button>
+            <Table
+                columns={columns}
+                dataSource={data}
+                loading={loading}
+                pagination={{
+                    pageSize: params.size,
+                    current: params.page,
+                    total: total,
+                }}
+            />
+            <AddUser
+                ref={addRef}
+                data={editUserInfo}
+                afterSuccess={getList}
+                afterClose={() => {
+                    setEditUserInfo(null);
+                }}
+            />
         </>
     );
 };

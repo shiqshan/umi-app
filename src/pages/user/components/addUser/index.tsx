@@ -3,19 +3,27 @@ import { Input, Drawer, Form, InputNumber, Select, Button, Spin, message } from 
 /**
  * 新增用户抽屉组件
  */
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { DrawerProps } from 'antd/lib/drawer';
 import { user_api, UserInfo } from '@/api/user';
 
 interface IProps {
     afterSuccess?: () => void;
+    afterClose?: () => void;
+    data?: UserInfo | null;
 }
 
 const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
-    const { afterSuccess } = props;
+    const { afterSuccess, data, afterClose } = props;
     const [form] = Form.useForm();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (data) {
+            form.setFieldsValue({ ...data });
+        }
+    }, [data]);
 
     useImperativeHandle(
         ref,
@@ -28,18 +36,33 @@ const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
 
     const onFinish = (values: UserInfo) => {
         setLoading(true);
-        user_api.add({ ...values }).then((res) => {
-            const { success } = res;
-            if (success) {
-                message.success('添加成功');
-                onClose();
-                //成功的回调
-                afterSuccess?.();
-            } else {
-                message.error(res.message || '添加失败');
-            }
-            setLoading(false);
-        });
+        if (data) {
+            user_api.update({ ...values }).then((res) => {
+                const { success } = res;
+                if (success) {
+                    message.success('修改成功');
+                    onClose();
+                    //成功的回调
+                    afterSuccess?.();
+                } else {
+                    message.error(res.message || '修改失败');
+                }
+                setLoading(false);
+            });
+        } else {
+            user_api.add({ ...values }).then((res) => {
+                const { success } = res;
+                if (success) {
+                    message.success('添加成功');
+                    onClose();
+                    //成功的回调
+                    afterSuccess?.();
+                } else {
+                    message.error(res.message || '添加失败');
+                }
+                setLoading(false);
+            });
+        }
     };
 
     const showDrawer = () => {
@@ -48,6 +71,8 @@ const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
 
     const onClose = () => {
         setOpen(false);
+        form.resetFields();
+        afterClose?.();
     };
 
     const layout = {
@@ -67,7 +92,7 @@ const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
                         <Input />
                     </Form.Item>
                     <Form.Item name={'id'} label="身份证号" rules={[{ required: true }]} help={'请输入身份证号'}>
-                        <Input />
+                        <Input disabled={data ? true : false} />
                     </Form.Item>
                     <Form.Item name={'age'} label="年龄" rules={[{ required: true }]} help={'请输入年龄'}>
                         <InputNumber />
