@@ -10,6 +10,7 @@ export interface FetchResult<T = unknown> {
 export interface FetchApi<T = unknown, F = unknown> {
     (body?: T): Promise<FetchResult<F>>;
 }
+
 export interface Pager<T> {
     page?: number;
     size?: number;
@@ -42,7 +43,7 @@ export const Fetch = async <F = unknown, T = unknown>(url: string, data?: F, ini
             }
         })
         .catch((e) => {
-            message.error(e.toString());
+            message.error('服务器异常');
         })
         .finally(() => {});
 };

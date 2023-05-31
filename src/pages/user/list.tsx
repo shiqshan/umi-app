@@ -36,13 +36,13 @@ const List = () => {
     const getList = () => {
         setLoading(true);
         user_api.list({ ...params }).then((res) => {
-            const { success, data } = res;
+            const { success, data } = res || { success: true, data: [] };
             if (success && data) {
                 timer = setTimeout(() => {
                     setLoading(false);
                     setData(data.list || []);
                     setTotal(data.total || 0);
-                }, 500);
+                }, 200);
             }
         });
     };
@@ -160,6 +160,9 @@ const List = () => {
                     pageSize: params.size,
                     current: params.page,
                     total: total,
+                    onChange: (page, pageSize) => {
+                        setParams({ ...params, page: page });
+                    },
                 }}
             />
             <AddUser

@@ -17,8 +17,7 @@ const IndexPage = ({ history }: { history: History }) => {
 
     const doLogin = ({ username, password }: ILoginParams) => {
         user_api.login({ username, password }).then((res) => {
-            console.log(res);
-            const { success, data } = res;
+            const { success, data } = res || {};
             if (success || true) {
                 setLoading(false);
                 history.push(`/user/list`);

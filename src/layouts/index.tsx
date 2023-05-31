@@ -29,13 +29,6 @@ const BasicLayout = (props: any) => {
                     <HeaderUser />
                     <div className={global.action}></div>
                 </Space>
-                {/*<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[pathname]}>*/}
-                {/*    {menuData.map((menu) => (*/}
-                {/*        <Menu.Item key={`/${menu.route}`}>*/}
-                {/*            <Link to={menu.route}>{menu.name}</Link>*/}
-                {/*        </Menu.Item>*/}
-                {/*    ))}*/}
-                {/*</Menu>*/}
             </Header>
             <Layout>
                 <Sider width={230} className="site-layout-background">
@@ -48,21 +41,13 @@ const BasicLayout = (props: any) => {
                         items={MyMenu}
                     />
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px' }}>
+                <Layout style={{ padding: '0 16px 16px' }} className={styles.section}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Content
-                        style={{
-                            padding: 16,
-                            margin: 0,
-                            background: '#fff',
-                        }}
-                    >
-                        {children}
-                    </Content>
+                    <Content className={styles.content}>{children}</Content>
                 </Layout>
             </Layout>
             {/*<Footer style={{ textAlign: 'center' }}>*/}
