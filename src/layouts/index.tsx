@@ -4,6 +4,7 @@ import styles from './index.less';
 import global from '../global.less';
 import HeaderUser from '@/components/HeaderUser';
 import MyMenu from '@/menu';
+import { BreadcrumbConfig } from '@/layouts/config';
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -43,9 +44,9 @@ const BasicLayout = (props: any) => {
                 </Sider>
                 <Layout style={{ padding: '0 16px 16px' }} className={styles.section}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                        {BreadcrumbConfig.get(pathname)?.map((item) => (
+                            <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
+                        ))}
                     </Breadcrumb>
                     <Content className={styles.content}>{children}</Content>
                 </Layout>
