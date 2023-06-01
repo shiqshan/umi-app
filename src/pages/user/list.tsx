@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Space, Table, Form, Input, Button, Popconfirm, message } from 'antd';
+import { Space, Table, Form, Input, Button, Popconfirm, message, Select } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { user_api, UserInfo } from '@/api/user';
@@ -39,9 +39,9 @@ const List = () => {
             const { success, data } = res || { success: true, data: [] };
             if (success && data) {
                 timer = setTimeout(() => {
-                    setLoading(false);
                     setData(data.list || []);
                     setTotal(data.total || 0);
+                    setLoading(false);
                 }, 200);
             }
         });
@@ -73,6 +73,11 @@ const List = () => {
             title: '地址',
             dataIndex: 'address',
             key: 'address',
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
         },
         {
             title: '操作',
@@ -134,10 +139,16 @@ const List = () => {
             <div className={styles.form}>
                 <Form form={form} layout={'inline'}>
                     <Form.Item label="姓名" name="name">
-                        <Input width={200} allowClear />
+                        <Input width={200} allowClear placeholder={'请输入姓名'} />
+                    </Form.Item>
+                    <Form.Item label="性别" name="sex">
+                        <Select style={{ width: 200 }} placeholder={'请选择'} allowClear>
+                            <Select.Option key={'男'}>{'男'}</Select.Option>
+                            <Select.Option key={'女'}>{'女'}</Select.Option>
+                        </Select>
                     </Form.Item>
                     <Form.Item label="手机号" name="tel_number">
-                        <Input width={200} allowClear />
+                        <Input width={200} allowClear placeholder={'请输入手机号'} />
                     </Form.Item>
                     <Form.Item>
                         <Space>
@@ -156,6 +167,8 @@ const List = () => {
                 columns={columns}
                 dataSource={data}
                 loading={loading}
+                size={'middle'}
+                // bordered={true}
                 pagination={{
                     pageSize: params.size,
                     current: params.page,

@@ -85,8 +85,8 @@ const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
     };
 
     return (
-        <Spin spinning={loading}>
-            <Drawer title="添加用户" placement="right" onClose={onClose} open={open} width={500} maskClosable={false} {...props}>
+        <Drawer title="添加用户" placement="right" onClose={onClose} open={open} width={500} maskClosable={false} {...props}>
+            <Spin spinning={loading}>
                 <Form form={form} {...layout} onFinish={onFinish}>
                     <Form.Item name={'name'} label="姓名" rules={[{ required: true }]} help={'请输入姓名'}>
                         <Input />
@@ -118,8 +118,8 @@ const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
                         </Button>
                     </Form.Item>
                 </Form>
-            </Drawer>
-        </Spin>
+            </Spin>
+        </Drawer>
     );
 });
 

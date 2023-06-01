@@ -20,6 +20,7 @@ export interface UserInfo {
     qq: string;
     account: string;
     password: string;
+    createTime: string;
     age: number;
     id_sort: number;
 }
