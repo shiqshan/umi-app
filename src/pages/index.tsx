@@ -17,6 +17,7 @@ const IndexPage = ({ history }: { history: History }) => {
     };
 
     const doLogin = ({ username, password }: ILoginParams) => {
+        setLoading(true);
         user_api.login({ username, password }).then((res) => {
             const { success, data } = res || {};
             if (success || true) {
@@ -34,26 +35,24 @@ const IndexPage = ({ history }: { history: History }) => {
                     <Form
                         className={styles.login_form}
                         name="basic"
-                        // labelCol={{ span: 8 }}
-                        // wrapperCol={{ span: 16 }}
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+                        autoComplete="on"
                     >
                         <Form.Item label="" name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-                            <Input prefix={<UserOutlined />} size={'large'} />
+                            <Input prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
                         </Form.Item>
 
                         <Form.Item label="" name="password" rules={[{ required: true, message: '请输入密码' }]}>
-                            <Input.Password prefix={<LockOutlined />} size={'large'} />
+                            <Input.Password prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
                         </Form.Item>
 
                         <Form.Item>
                             <Form.Item name="remember" valuePropName="checked" noStyle>
                                 <Checkbox>记住密码</Checkbox>
                             </Form.Item>
-                            <a style={{ float: 'right' }}>忘记密码?</a>
+                            <a style={{ float: 'right' }}>忘记密码</a>
                         </Form.Item>
 
                         <div style={{ fontSize: '12px' }} className={styles.agree_desc}>
