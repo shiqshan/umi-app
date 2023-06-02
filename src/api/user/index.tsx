@@ -44,12 +44,14 @@ export interface IUserListParam {
 
 export const user_api: {
     login: FetchApi<ILoginParams, UserInfo>;
+    logout: FetchApi<null, string>;
     list: FetchApi<IUserListParam, Pager<UserInfo>>;
     add: FetchApi<AddUserBody, UserInfo>;
     update: FetchApi<AddUserBody, UserInfo>;
     delete: FetchApi<{ id: string }, null>;
 } = {
     login: (body) => Fetch(`${userBaseApi}/login`, body),
+    logout: () => Fetch(`${userBaseApi}/logout`),
     list: (body) => Fetch(`${userBaseApi}/getUserList`, body),
     add: (body) => Fetch(`${userBaseApi}/insertUser`, body),
     update: (body) => Fetch(`${userBaseApi}/updateUser`, body),

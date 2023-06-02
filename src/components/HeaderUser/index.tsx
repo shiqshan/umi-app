@@ -3,9 +3,11 @@ import { Dropdown, message, Avatar, Divider } from 'antd';
 import React from 'react';
 import global from '../../global.less';
 import { UserOutlined, PoweroffOutlined, SettingOutlined } from '@ant-design/icons';
+import { user_api } from '@/api/user';
+import { history } from 'umi';
 
 const onClick: MenuProps['onClick'] = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    // message.info(`Click on item ${key}`);
 };
 
 const items: MenuProps['items'] = [
@@ -26,6 +28,13 @@ const items: MenuProps['items'] = [
         label: '退出登录',
         key: '3',
         icon: <PoweroffOutlined />,
+        onClick: () => {
+            user_api.logout().then((res) => {
+                if (res.success) {
+                    history.push('/');
+                }
+            });
+        },
     },
 ];
 

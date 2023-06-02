@@ -4,6 +4,7 @@ import { Routes } from './src/routes'; // 只能使用 ./ 形式引入模块， 
 export default defineConfig({
     nodeModulesTransform: {
         type: 'none',
+        exclude: [],
     },
     dynamicImport: {
         loading: '@/Loading.tsx',
