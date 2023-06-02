@@ -5,7 +5,9 @@ export default defineConfig({
     nodeModulesTransform: {
         type: 'none',
     },
-    dynamicImport: {}, //启用按需加载
+    dynamicImport: {
+        loading: '@/Loading.tsx',
+    }, //启用按需加载
     routes: Routes,
     fastRefresh: {},
     // 只需要 dev，这么配
@@ -16,7 +18,9 @@ export default defineConfig({
         skipModelValidate: false,
     },
     theme: {
-        'primary-color': 'rgb(114, 46, 209);',
+        // 'primary-color': '#3761F8',
+        // 'primary-color': '#b59758',
+        'primary-color': 'rgb(47, 84, 235)',
     },
     proxy: {
         // "/api": {

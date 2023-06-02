@@ -49,8 +49,11 @@ const IndexPage = ({ history }: { history: History }) => {
                             <Input.Password prefix={<LockOutlined />} size={'large'} />
                         </Form.Item>
 
-                        <Form.Item name="remember" valuePropName="checked">
-                            <Checkbox>记住密码</Checkbox>
+                        <Form.Item>
+                            <Form.Item name="remember" valuePropName="checked" noStyle>
+                                <Checkbox>记住密码</Checkbox>
+                            </Form.Item>
+                            <a style={{ float: 'right' }}>忘记密码?</a>
                         </Form.Item>
 
                         <div style={{ fontSize: '12px' }} className={styles.agree_desc}>
