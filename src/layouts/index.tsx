@@ -3,8 +3,7 @@ import { Layout, Menu, Breadcrumb, Space } from 'antd';
 import styles from './index.less';
 import global from '../global.less';
 import HeaderUser from '@/components/HeaderUser';
-import MyMenu from '@/menu';
-import { BreadcrumbConfig } from '@/layouts/config';
+import MyMenu, { BreadcrumbConfig } from '@/menu';
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -37,15 +36,15 @@ const BasicLayout = (props: any) => {
                         mode="inline"
                         defaultSelectedKeys={[pathname]}
                         onSelect={onSelect}
-                        defaultOpenKeys={['user']}
+                        defaultOpenKeys={['dashboard']}
                         style={{ height: '100%', borderRight: 0 }}
                         items={MyMenu}
                     />
                 </Sider>
                 <Layout style={{ padding: '0 16px 16px' }} className={styles.section}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        {BreadcrumbConfig.get(pathname)?.map((item) => (
-                            <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
+                        {BreadcrumbConfig.get(pathname)?.map((item, index) => (
+                            <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
                         ))}
                     </Breadcrumb>
                     <Content className={styles.content}>{children}</Content>

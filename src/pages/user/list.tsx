@@ -135,7 +135,7 @@ const List = () => {
     };
 
     return (
-        <>
+        <div className={'global_content'}>
             <div className={styles.form}>
                 <Form form={form} layout={'inline'}>
                     <Form.Item label="姓名" name="name">
@@ -168,6 +168,7 @@ const List = () => {
                 dataSource={data}
                 loading={loading}
                 size={'middle'}
+                rowKey={(record) => record.id}
                 // bordered={true}
                 pagination={{
                     pageSize: params.size,
@@ -186,7 +187,7 @@ const List = () => {
                     setEditUserInfo(null);
                 }}
             />
-        </>
+        </div>
     );
 };
 
