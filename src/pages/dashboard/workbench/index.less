@@ -1,0 +1,178 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone {
+    margin: 0px auto;
+    width: 375px;
+    height: 765px;
+    background: #000;
+    border-radius: 50px;
+    background-size: cover;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.screen {
+    width: 330px;
+    height: 657px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+
+    .number {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        transform: translateX(-50%);
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5em;
+        color: #fff;
+    }
+
+    .ascending {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        filter: contrast(15);
+        //background: #050807;
+    }
+
+    .circle {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        margin-left: -150px;
+        //filter: blur(8px);
+    }
+
+    .circle::before {
+        content: '';
+        width: 200px;
+        height: 200px;
+        background: #4dff03;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 42% 38% 46% 45%;
+    }
+
+    .circle::after {
+        content: '';
+        width: 178px;
+        height: 178px;
+        background: #000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+    }
+
+    .bubble {
+        width: 20px;
+        height: 20px;
+        background: #4dff03;
+        border-radius: 100%;
+        position: absolute;
+        left: 50%;
+        bottom: 5px;
+        transform: translateX(-50%);
+        z-index: 2;
+        filter: blur(0px);
+    }
+
+    .bubble_home {
+        width: 100px;
+        height: 40px;
+        background: #4dff03;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        border-radius: 100px 100px 0 0;
+        filter: blur(2px);
+    }
+}
+
+.screen .ascending {
+    animation: animation1 5s linear infinite;
+}
+
+@keyframes animation1 {
+    0% {
+        filter: contrast(15) hue-rotate(0);
+    }
+    100% {
+        filter: contrast(15) hue-rotate(360deg);
+    }
+}
+
+.screen .circle {
+    animation: animation2 5s linear infinite;
+}
+
+@keyframes animation2 {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.screen .bubble {
+    animation: animation3 3s ease-in-out infinite;
+}
+
+.bubble:nth-child(1) {
+    animation-duration: 2.5s;
+    animation-delay: 1s;
+    left: 50%;
+}
+
+.bubble:nth-child(2) {
+    animation-duration: 2.5s;
+    animation-delay: 1.4s;
+    left: 51%;
+}
+
+.bubble:nth-child(3) {
+    animation-duration: 2.5s;
+    animation-delay: 1.8s;
+    left: 52%;
+}
+
+.bubble:nth-child(4) {
+    animation-duration: 2.5s;
+    animation-delay: 2.2s;
+    left: 49%;
+}
+
+.bubble:nth-child(5) {
+    animation-duration: 2.5s;
+    animation-delay: 2.6s;
+    left: 48%;
+}
+
+@keyframes animation3 {
+    0% {
+        bottom: 0;
+        filter: opacity(1);
+    }
+    100% {
+        bottom: calc(80% - 170px);
+        filter: opacity(0.5);
+    }
+}
