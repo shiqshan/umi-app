@@ -1,9 +1,9 @@
-import { History, request, useRequest } from 'umi';
+import { History } from 'umi';
 import styles from './index.less';
 import { Button, Checkbox, Divider, Form, Input, Space } from 'antd';
 import React, { useState } from 'react';
 import { ILoginParams, user_api } from '@/api/user';
-import Icon, { UserOutlined, LockOutlined, QqOutlined, WechatFilled } from '@ant-design/icons';
+import Icon, { UserOutlined, LockOutlined, WechatFilled } from '@ant-design/icons';
 
 const IndexPage = ({ history }: { history: History }) => {
     const [loading, setLoading] = useState<boolean>(false);

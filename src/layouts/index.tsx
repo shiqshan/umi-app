@@ -16,6 +16,7 @@ const BasicLayout = (props: any) => {
     // console.log('9898', location, children);
 
     const onSelect = ({ item, key, keyPath }: any) => {
+        console.log('9898', key);
         history.push(`${key}`);
     };
     return (

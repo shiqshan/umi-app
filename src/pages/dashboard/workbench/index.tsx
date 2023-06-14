@@ -3,23 +3,28 @@
  */
 import React, { useEffect, useState } from 'react';
 import styles from './index.less';
+import { getLocale } from '@@/plugin-locale/localeExports';
 
 let num = 120;
 let timer: ReturnType<typeof setInterval> | undefined = undefined;
+
 const Workbench = () => {
     const [percent, setPercent] = useState<number>(num / 10);
 
     useEffect(() => {
-        timer = setInterval(() => {
-            if (num >= 1000) {
-                clearInterval(timer);
-            }
-            num += 1;
-            setPercent(num / 10);
-        }, 500);
+        const timer_1 = setTimeout(() => {
+            timer = setInterval(() => {
+                if (num >= 1000) {
+                    clearInterval(timer);
+                }
+                num += 1;
+                setPercent(num / 10);
+            }, 500);
+        }, 2600);
 
         return () => {
             clearInterval(timer);
+            clearTimeout(timer_1);
         };
     }, []);
     return (

@@ -1,0 +1,30 @@
+.main {
+    display: flex;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.left {
+    width: 224px;
+    border-right: 1px solid #f0f0f0;
+
+    :global {
+        .ant-menu-inline {
+            border-right: none;
+        }
+    }
+}
+
+.right {
+    flex: 1 1;
+    padding: 8px 40px;
+}
+
+.base_set_form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}

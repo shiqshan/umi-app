@@ -6,6 +6,9 @@ export default defineConfig({
         type: 'none',
         exclude: [],
     },
+    locale: {
+        antd: true,
+    },
     dynamicImport: {
         loading: '@/Loading.tsx',
     }, //启用按需加载
