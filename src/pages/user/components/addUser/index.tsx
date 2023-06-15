@@ -85,28 +85,28 @@ const AddUser = forwardRef((props: DrawerProps & IProps, ref) => {
     };
 
     return (
-        <Drawer title="添加用户" placement="right" onClose={onClose} open={open} width={500} maskClosable={false} {...props}>
+        <Drawer title="添加用户" placement="right" onClose={onClose} open={open} width={750} maskClosable={false} {...props}>
             <Spin spinning={loading}>
                 <Form form={form} {...layout} onFinish={onFinish}>
-                    <Form.Item name={'name'} label="姓名" rules={[{ required: true }]} help={'请输入姓名'}>
+                    <Form.Item name={'name'} label="姓名" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name={'id'} label="身份证号" rules={[{ required: true }]} help={'请输入身份证号'}>
+                    <Form.Item name={'id'} label="身份证号" rules={[{ required: true }]}>
                         <Input disabled={data ? true : false} />
                     </Form.Item>
-                    <Form.Item name={'age'} label="年龄" rules={[{ required: true }]} help={'请输入年龄'}>
+                    <Form.Item name={'age'} label="年龄" rules={[{ required: true }]}>
                         <InputNumber />
                     </Form.Item>
-                    <Form.Item name={'sex'} label="性别" rules={[{ required: true }]} help={'请选择性别'}>
+                    <Form.Item name={'sex'} label="性别" rules={[{ required: true }]}>
                         <Select>
                             <Select.Option value={'男'}>男</Select.Option>
                             <Select.Option value={'女'}>女</Select.Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item name={'tel_number'} label="手机号" rules={[{ required: true }]} help={'请填写手机号'}>
+                    <Form.Item name={'tel_number'} label="手机号" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name={'address'} label="地址" rules={[{ required: true }]} help={'请填写地址'}>
+                    <Form.Item name={'address'} label="地址" rules={[{ required: true }]}>
                         <Input.TextArea />
                     </Form.Item>
                     <Form.Item {...tailLayout}>

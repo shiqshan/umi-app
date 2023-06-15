@@ -5,21 +5,24 @@ import global from '../../global.less';
 import { UserOutlined, PoweroffOutlined, SettingOutlined } from '@ant-design/icons';
 import { user_api } from '@/api/user';
 import { history } from 'umi';
-
-const onClick: MenuProps['onClick'] = ({ key }) => {
-    // message.info(`Click on item ${key}`);
-};
+import { PathEnum } from '@/routes';
 
 const items: MenuProps['items'] = [
     {
         label: '个人中心',
         key: '1',
         icon: <UserOutlined />,
+        onClick: () => {
+            history.push(PathEnum.Account_Center);
+        },
     },
     {
         label: '个人设置',
         key: '2',
         icon: <SettingOutlined />,
+        onClick: () => {
+            history.push(PathEnum.Account_Setting);
+        },
     },
     {
         type: 'divider',
@@ -40,7 +43,7 @@ const items: MenuProps['items'] = [
 
 const HeaderUser: React.FC = () => (
     <Dropdown
-        menu={{ items, onClick }}
+        menu={{ items }}
         placement="bottomLeft"
         dropdownRender={(menu) => (
             <>

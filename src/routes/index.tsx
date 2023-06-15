@@ -27,6 +27,9 @@ export const Routes: IRoute[] = [
             { path: PathEnum.Dashboard_Workbench, component: '@/pages/dashboard/workbench' },
             { path: PathEnum.Account_Center, component: '@/pages/account/center' },
             { path: PathEnum.Account_Setting, component: '@/pages/account/setting' },
+
+            /**404 须放在最下面**/
+            { component: '@/pages/404/index' },
         ],
     },
 ];

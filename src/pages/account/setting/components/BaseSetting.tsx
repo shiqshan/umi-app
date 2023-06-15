@@ -75,7 +75,7 @@ const BaseSetting = () => {
                     </Form.Item>
                 </Form>
 
-                <Image width={300} wrapperStyle={{ position: 'absolute', right: '200px' }} src={require('@/public/icon/ikun.webp')} />
+                <Image width={300} src={require('@/public/icon/ikun.webp')} />
             </div>
         </>
     );
