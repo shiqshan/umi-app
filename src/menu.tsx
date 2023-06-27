@@ -7,6 +7,7 @@ import { PathEnum } from '@/routes';
 export const BreadcrumbConfig = new Map<string, string[]>([
     [PathEnum.Dashboard_Analyze, ['数据可视化', '分析页']],
     [PathEnum.Dashboard_Workbench, ['数据可视化', '工作台']],
+    [PathEnum.Dashboard_Rotate, ['数据可视化', '旋转动画']],
     [PathEnum.User_List, ['用户管理', '用户列表']],
     [PathEnum.User_Detail, ['用户管理', '用户详情']],
     [PathEnum.Account_Center, ['个人管理', '个人中心']],
@@ -28,6 +29,11 @@ const MyMenu: MenuProps['items'] = [
                 key: PathEnum.Dashboard_Workbench,
                 icon: null,
                 label: `工作台`,
+            },
+            {
+                key: PathEnum.Dashboard_Rotate,
+                icon: null,
+                label: `旋转动画`,
             },
         ],
     },
