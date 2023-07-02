@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuProps } from 'antd';
-import { UserOutlined, DashboardOutlined, IdcardOutlined } from '@ant-design/icons';
+import { UserOutlined, DashboardOutlined, IdcardOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import { PathEnum } from '@/routes';
 
 //路由面包屑Map
@@ -12,6 +12,7 @@ export const BreadcrumbConfig = new Map<string, string[]>([
     [PathEnum.User_Detail, ['用户管理', '用户详情']],
     [PathEnum.Account_Center, ['个人管理', '个人中心']],
     [PathEnum.Account_Setting, ['个人管理', '个人设置']],
+    [PathEnum.LOL_HeroList, ['英雄联盟', '英雄列表']],
 ]);
 
 const MyMenu: MenuProps['items'] = [
@@ -34,6 +35,18 @@ const MyMenu: MenuProps['items'] = [
                 key: PathEnum.Dashboard_Rotate,
                 icon: null,
                 label: `旋转动画`,
+            },
+        ],
+    },
+    {
+        key: `lol`,
+        icon: <GooglePlusOutlined />,
+        label: `英雄联盟`,
+        children: [
+            {
+                key: PathEnum.LOL_HeroList,
+                icon: null,
+                label: `英雄列表`,
             },
         ],
     },

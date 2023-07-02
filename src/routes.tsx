@@ -13,6 +13,8 @@ export enum PathEnum {
 
     Account_Center = '/account/center',
     Account_Setting = '/account/setting',
+
+    LOL_HeroList = '/lol/hero-list',
 }
 
 export const Routes: IRoute[] = [
@@ -29,6 +31,7 @@ export const Routes: IRoute[] = [
             { path: PathEnum.Dashboard_Rotate, component: '@/pages/dashboard/rotate' },
             { path: PathEnum.Account_Center, component: '@/pages/account/center' },
             { path: PathEnum.Account_Setting, component: '@/pages/account/setting' },
+            { path: PathEnum.LOL_HeroList, component: '@/pages/lol/heroList' },
 
             /**404 须放在最下面**/
             { component: '@/pages/404/index' },
