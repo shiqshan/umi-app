@@ -1,8 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Card, Col, Row, Space, Radio, Input, RadioChangeEvent } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { HeroItem, lol_api } from '@/api/lol';
+import { heroBaseSkinApi, HeroItem, lol_api } from '@/api/lol';
 import styles from './index.less';
+import { history } from 'umi';
 
 export const heroType = [
     { key: 'all', value: '全部定位' },
@@ -56,10 +57,12 @@ const HeroList = () => {
     useEffect(() => {
         const section = document.getElementById('my-section');
         section?.addEventListener('scroll', handleScroll);
+        console.log('9898', 'addEventListener');
         return () => {
             //组件卸载，重置
             section?.removeEventListener('scroll', handleScroll);
             clearTimeout(timer);
+            timer = undefined;
             count = 0;
         };
     }, []);
@@ -86,6 +89,7 @@ const HeroList = () => {
 
     const handleScroll = () => {
         if (!timer) {
+            console.log('9898', 'handleScroll');
             timer = setTimeout(() => {
                 setImgSrc();
                 //执行完重置为null
@@ -119,13 +123,22 @@ const HeroList = () => {
                             className={styles.card_wrapper}
                             hoverable={true}
                             bodyStyle={{ textAlign: 'center' }}
+                            onClick={() =>
+                                history.push({
+                                    pathname: `/lol/hero-detail/${item.heroId}`,
+                                    //query传参， 以？拼接， /lol/hero-detail/3?a=b
+                                    // query: {
+                                    //     a: 'b',
+                                    // },
+                                })
+                            }
                             cover={
                                 <div className={styles.cover_wrapper}>
                                     <img
                                         alt={item.name}
                                         id={item.heroId}
                                         className={'hero-cover-img'}
-                                        data-src={`https://game.gtimg.cn/images/lol/act/img/skinloading/${Number(item.heroId) * 1000}.jpg`}
+                                        data-src={`${heroBaseSkinApi}${Number(item.heroId) * 1000}.jpg`}
                                         src={require('@/public/icon/errorImg.png')}
                                     />
                                 </div>
