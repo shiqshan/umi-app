@@ -1,6 +1,6 @@
 import { History } from 'umi';
 import styles from './index.less';
-import { Button, Checkbox, Divider, Form, Input, Space } from 'antd';
+import { Button, Checkbox, Divider, Form, Input, message, Space } from 'antd';
 import React, { useState } from 'react';
 import { ILoginParams, user_api } from '@/api/user';
 import Icon, { UserOutlined, LockOutlined, WechatFilled } from '@ant-design/icons';
@@ -18,13 +18,19 @@ const IndexPage = ({ history }: { history: History }) => {
 
     const doLogin = ({ username, password }: ILoginParams) => {
         setLoading(true);
-        user_api.login({ username, password }).then((res) => {
-            const { success, data } = res || {};
-            if (success || true) {
+        user_api
+            .login({ username, password })
+            .then((res) => {
+                const { success, message: msg, data } = res || {};
+                if (success) {
+                    history.push(`/user/list`);
+                } else {
+                    message.error(msg);
+                }
+            })
+            .finally(() => {
                 setLoading(false);
-                history.push(`/user/list`);
-            }
-        });
+            });
     };
 
     return (
@@ -56,7 +62,12 @@ const IndexPage = ({ history }: { history: History }) => {
                         </Form.Item>
 
                         <div style={{ fontSize: '12px' }} className={styles.agree_desc}>
-                            登录即表示您已同意《<a>服务条款</a>》
+                            <a type={'link'} onClick={() => history.push(`/dashboard/analyze`)}>
+                                没有账号？游客进入
+                            </a>
+                            <div>
+                                登录即表示您已同意《<a>服务条款</a>》
+                            </div>
                         </div>
                         <Button type="primary" htmlType="submit" block size={'large'} className={styles.login_btn} loading={loading}>
                             登录
