@@ -53,7 +53,7 @@ const BasicLayout = (props: any) => {
                         items={MyMenu}
                     />
                 </Sider>
-                <Layout style={{ padding: '0 16px 16px' }} className={styles.section}>
+                <Layout style={{ padding: '0 16px 16px' }} className={styles.section} id={'my-section'}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         {BreadcrumbConfig.get(path)?.map((item, index) => (
                             <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>

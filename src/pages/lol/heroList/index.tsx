@@ -1,5 +1,5 @@
-import React, { ChangeEvent, ChangeEventHandler, useEffect, useState } from 'react';
-import { Card, Col, Form, Row, Space, Radio, Input, RadioChangeEvent } from 'antd';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Card, Col, Row, Space, Radio, Input, RadioChangeEvent } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { HeroItem, lol_api } from '@/api/lol';
 import styles from './index.less';
@@ -22,11 +22,15 @@ export const positionType = [
     { key: 'bottom', value: '下路' },
     { key: 'support', value: '辅助' },
 ];
+let timer: NodeJS.Timeout | number | undefined = undefined;
+let count: number = 0;
+/**
+ * lol英雄列表
+ * @constructor
+ */
 const HeroList = () => {
-    const [form] = Form.useForm();
     const [list, setList] = useState<HeroItem[]>([]);
     const [searchVal, setSearchVal] = useState<string>('');
-    const [type_1, setType_1] = useState<string>('all');
     const [type_2, setType_2] = useState<string>('all');
 
     useEffect(() => {
@@ -36,19 +40,8 @@ const HeroList = () => {
         });
     }, []);
 
-    const getBaseSkin = () => {
-        lol_api.skin_list().then((res) => {
-            // const { skin } = res;
-        });
-    };
-
     const search = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchVal(e.target.value);
-    };
-
-    const radio_1 = (e: RadioChangeEvent) => {
-        console.log('radio checked', e.target.value);
-        setType_1(e.target.value);
     };
 
     const radio_2 = (e: RadioChangeEvent) => {
@@ -56,46 +49,94 @@ const HeroList = () => {
         setType_2(e.target.value);
     };
 
+    useEffect(() => {
+        setImgSrc();
+    }, [list, searchVal, type_2]);
+
+    useEffect(() => {
+        const section = document.getElementById('my-section');
+        section?.addEventListener('scroll', handleScroll);
+        return () => {
+            //组件卸载，重置
+            section?.removeEventListener('scroll', handleScroll);
+            clearTimeout(timer);
+            count = 0;
+        };
+    }, []);
+
+    const setImgSrc = () => {
+        const imgList = document.getElementsByClassName('hero-cover-img') as HTMLCollectionOf<HTMLImageElement>;
+        // 获取可视窗口的高度。兼容所有浏览器
+        const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        // 获取滚动条滚动的高度
+        const scrollTop = document.documentElement.scrollTop;
+        if (count === imgList.length) {
+            return;
+        }
+        for (let i = 0; i < imgList.length; i++) {
+            let everyHeight = imgList[i].getBoundingClientRect().top;
+            if (everyHeight - scrollTop <= screenHeight + 100) {
+                if (imgList[i].src != imgList[i]['dataset'].src) {
+                    imgList[i].src = imgList[i]['dataset'].src as string;
+                    count += 1;
+                }
+            }
+        }
+    };
+
+    const handleScroll = () => {
+        if (!timer) {
+            timer = setTimeout(() => {
+                setImgSrc();
+                //执行完重置为null
+                timer = undefined;
+            }, 300);
+        }
+    };
+
     return (
-        <>
+        <div style={{ position: 'relative' }}>
             <Space style={{ marginBottom: '20px' }}>
                 <Input placeholder="搜索" onChange={search} suffix={<SearchOutlined />} />
-                {/*<Radio.Group onChange={radio_1} value={type_1}>*/}
-                {/*    {positionType.map(data => (*/}
-                {/*        <Radio.Button value={data.key} key={`hero-rodio-${data.key}`}>*/}
-                {/*            {data.value}*/}
-                {/*        </Radio.Button>*/}
-                {/*    ))}*/}
-                {/*</Radio.Group>*/}
                 <Radio.Group onChange={radio_2} value={type_2}>
                     {heroType.map((data) => (
-                        <Radio.Button value={data.key} key={`hero-rodio-${data.key}`}>
+                        <Radio.Button value={data.key} key={data.key}>
                             {data.value}
                         </Radio.Button>
                     ))}
                 </Radio.Group>
             </Space>
             <Row gutter={[16, 16]}>
-                {list
-                    .filter((item) => (type_2 == 'all' || item.roles.indexOf(type_2) >= 0) && item.keywords.indexOf(searchVal) >= 0)
-                    .map((item) => (
-                        <Col flex={'160px'} key={item.heroId}>
-                            <Card
-                                className={styles.card_wrapper}
-                                hoverable={true}
-                                bodyStyle={{ textAlign: 'center' }}
-                                cover={
-                                    <div className={styles.cover_wrapper}>
-                                        <img alt={item.name} src={`https://game.gtimg.cn/images/lol/act/img/skinloading/${Number(item.heroId) * 1000}.jpg`} />
-                                    </div>
-                                }
-                            >
-                                <Card.Meta className={styles.meta_wrapper} title={item.name} />
-                            </Card>
-                        </Col>
-                    ))}
+                {list.map((item) => (
+                    <Col
+                        flex={'160px'}
+                        key={item.heroId}
+                        style={{
+                            display: (type_2 == 'all' || item.roles.indexOf(type_2) >= 0) && item.keywords.indexOf(searchVal) >= 0 ? '' : 'none',
+                        }}
+                    >
+                        <Card
+                            className={styles.card_wrapper}
+                            hoverable={true}
+                            bodyStyle={{ textAlign: 'center' }}
+                            cover={
+                                <div className={styles.cover_wrapper}>
+                                    <img
+                                        alt={item.name}
+                                        id={item.heroId}
+                                        className={'hero-cover-img'}
+                                        data-src={`https://game.gtimg.cn/images/lol/act/img/skinloading/${Number(item.heroId) * 1000}.jpg`}
+                                        src={require('@/public/icon/errorImg.png')}
+                                    />
+                                </div>
+                            }
+                        >
+                            <Card.Meta className={styles.meta_wrapper} title={item.name} />
+                        </Card>
+                    </Col>
+                ))}
             </Row>
-        </>
+        </div>
     );
 };
 
