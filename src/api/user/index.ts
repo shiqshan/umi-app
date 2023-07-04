@@ -13,16 +13,18 @@ export interface ILoginParams {
 
 export interface UserInfo {
     id: string;
-    name: string;
-    address: string;
-    sex: string;
-    tel_number: string;
-    qq: string;
-    account: string;
-    password: string;
-    createTime: string;
-    age: number;
-    id_sort: number;
+    username?: string;
+    password?: string;
+    nickname?: string;
+    address?: string;
+    sex?: string;
+    tel_number?: string;
+    qq?: string;
+    createTime?: string;
+    age?: number;
+    id_sort?: number;
+    isDelete?: number;
+    avatar?: string;
 }
 
 export interface AddUserBody {
@@ -42,7 +44,14 @@ export interface IUserListParam {
     size: number;
 }
 
+export interface IRegisterParams {
+    username: string;
+    password: string;
+}
+
 export const user_api: {
+    register: FetchApi<IRegisterParams>;
+    check: FetchApi<{ username: string }, number>;
     login: FetchApi<ILoginParams, UserInfo>;
     logout: FetchApi<null, string>;
     list: FetchApi<IUserListParam, Pager<UserInfo>>;
@@ -50,6 +59,8 @@ export const user_api: {
     update: FetchApi<AddUserBody, UserInfo>;
     delete: FetchApi<{ id: string }, null>;
 } = {
+    register: (body) => Fetch(`${userBaseApi}/register`, body),
+    check: (body) => Fetch(`${userBaseApi}/check`, body),
     login: (body) => Fetch(`${userBaseApi}/login`, body),
     logout: () => Fetch(`${userBaseApi}/logout`),
     list: (body) => Fetch(`${userBaseApi}/getUserList`, body),

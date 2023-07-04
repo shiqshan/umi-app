@@ -21,6 +21,7 @@ export enum PathEnum {
 export const Routes: IRoute[] = [
     { path: '/', redirect: '/login' },
     { path: '/login', component: '@/pages/index' },
+    { path: '/register', component: '@/pages/login/register' },
     {
         path: '/',
         component: '@/layouts/index',

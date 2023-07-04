@@ -49,10 +49,15 @@ const List = () => {
 
     const columns: ColumnsType<UserInfo> = [
         {
-            title: '姓名',
-            dataIndex: 'name',
-            key: 'name',
+            title: '账号',
+            dataIndex: 'username',
+            key: 'username',
             render: (text) => <a>{text}</a>,
+        },
+        {
+            title: '昵称',
+            dataIndex: 'nickname',
+            key: 'nickname',
         },
         {
             title: '年龄',
