@@ -26,7 +26,7 @@ const Login = ({ dispatch }: { dispatch: Dispatch }) => {
                     dispatch({ type: 'user/save', payload: { ...data } });
                     history.push(`/user/list`);
                 } else {
-                    message.error(msg);
+                    msg && message.error(msg);
                 }
             })
             .finally(() => {
@@ -153,4 +153,4 @@ const QQSvg = () => (
     </svg>
 );
 
-export default connect(null, (dispatch) => ({ dispatch }))(Login);
+export default connect(null, (dispatch: Dispatch) => ({ dispatch }))(Login);

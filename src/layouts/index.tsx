@@ -54,11 +54,7 @@ const BasicLayout = (props: any) => {
                     />
                 </Sider>
                 <Layout style={{ padding: '0 16px 16px' }} className={styles.section} id={'my-section'}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        {BreadcrumbConfig.get(path)?.map((item, index) => (
-                            <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
-                        ))}
-                    </Breadcrumb>
+                    <Breadcrumb style={{ margin: '16px 0' }} items={BreadcrumbConfig.get(path)?.map((item, index) => ({ title: item }))} />
                     <Content className={styles.content}>{children}</Content>
                 </Layout>
             </Layout>
