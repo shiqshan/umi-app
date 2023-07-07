@@ -15,7 +15,7 @@ export default defineConfig({
     routes: Routes,
     fastRefresh: {},
     // 只需要 dev，这么配
-    mfsu: {},
+    // mfsu: {},
     dva: {
         immer: true,
         hmr: true,

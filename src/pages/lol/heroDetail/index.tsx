@@ -1,8 +1,9 @@
 import React, { ReactPropTypes, useEffect, useState } from 'react';
 import styles from './index.less';
-import { IRouteComponentProps } from 'umi';
+import { IRouteComponentProps, history } from 'umi';
 import { heroBaseSkinApi, HeroDetail, lol_api } from '@/api/lol';
-import { Card, Col, Empty, Row } from 'antd';
+import { Button, Card, Col, Empty, Row } from 'antd';
+import { PathEnum } from '@/routes';
 
 /**
  * 英雄详情页
@@ -31,9 +32,13 @@ const HeroDetali = (props: IRouteComponentProps<{ id: string }>) => {
     };
 
     const tabContent: Record<string, React.ReactNode> = {
-        article: <p>article content</p>,
-        app: <p>app content</p>,
-        project: <p>project content</p>,
+        1: (
+            <Button type={'primary'} onClick={() => history.push(`/lol/hero-buy`, { info: info })}>
+                购买
+            </Button>
+        ),
+        2: <p>app content</p>,
+        3: <p>project content</p>,
     };
 
     const tabTitle = [
