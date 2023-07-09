@@ -26,6 +26,7 @@ export const Routes: IRoute[] = [
     {
         path: '/',
         component: '@/layouts/index',
+        wrappers: ['@/wrappers/auth'],
         routes: [
             { path: PathEnum.User_List, component: '@/pages/user/list' },
             { path: PathEnum.User_Detail, component: '@/pages/user/detail' },

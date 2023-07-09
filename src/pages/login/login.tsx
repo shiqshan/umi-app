@@ -4,6 +4,7 @@ import { Button, Checkbox, Divider, Form, Input, message, Space } from 'antd';
 import { ILoginParams, user_api } from '@/api/user';
 import Icon, { UserOutlined, LockOutlined, WechatFilled } from '@ant-design/icons';
 import { connect, history, Dispatch } from 'umi';
+import { useAuth } from '@/wrappers/auth';
 
 const Login = ({ dispatch }: { dispatch: Dispatch }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,6 +24,7 @@ const Login = ({ dispatch }: { dispatch: Dispatch }) => {
             .then((res) => {
                 const { success, message: msg, data } = res || {};
                 if (success) {
+                    setLocalStorage({ username, password });
                     dispatch({ type: 'user/save', payload: { ...data } });
                     history.push(`/user/list`);
                 } else {
@@ -32,6 +34,20 @@ const Login = ({ dispatch }: { dispatch: Dispatch }) => {
             .finally(() => {
                 setLoading(false);
             });
+    };
+
+    //本地保存账号密码
+    const setLocalStorage = (data: any) => {
+        window.localStorage.setItem('sqs_user', JSON.stringify(data));
+    };
+
+    const getLocalStorage = () => {
+        if (window.localStorage.getItem('sqs_user')) {
+            const data = JSON.parse(window.localStorage.getItem('sqs_user') || '');
+            return data;
+        } else {
+            return { username: '', password: '' };
+        }
     };
 
     return (
@@ -48,7 +64,11 @@ const Login = ({ dispatch }: { dispatch: Dispatch }) => {
                     <Form
                         className={styles.login_form}
                         name="basic"
-                        initialValues={{ remember: true }}
+                        initialValues={{
+                            remember: true,
+                            username: getLocalStorage().username,
+                            password: getLocalStorage().password,
+                        }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="on"

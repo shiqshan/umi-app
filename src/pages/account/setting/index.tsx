@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './index.less';
 import { Menu, Tabs } from 'antd';
-import { SelectInfo, ItemType } from 'rc-menu/lib/interface';
 import BaseSetting from '@/pages/account/setting/components/BaseSetting';
 import SafeSetting from './components/SafeSetting';
 import AccountBind from '@/pages/account/setting/components/AccountBind';
 import MessageNotice from '@/pages/account/setting/components/MessageNotice';
+import { ItemType } from 'antd/lib/menu/hooks/useItems';
 
 const AccountSetting = () => {
     const [key, setKey] = useState<string>('1');
@@ -17,7 +17,7 @@ const AccountSetting = () => {
         { label: '消息通知', key: '4' },
     ];
 
-    const onSelect = ({ key }: SelectInfo) => {
+    const onSelect = ({ key }: any) => {
         setKey(key);
     };
 

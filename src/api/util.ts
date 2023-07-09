@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import { history } from 'umi';
 
 export interface FetchResult<T = unknown> {
     code?: number;
@@ -43,7 +44,8 @@ export const Fetch = async <F = unknown, T = unknown>(url: string, data?: F, ini
             }
         })
         .catch((e) => {
-            message.error('服务器异常');
+            // history.replace('/login');
+            // message.error('服务器异常');
         })
         .finally(() => {});
 };

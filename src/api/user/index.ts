@@ -58,6 +58,7 @@ export const user_api: {
     add: FetchApi<AddUserBody, UserInfo>;
     update: FetchApi<AddUserBody, UserInfo>;
     delete: FetchApi<{ id: string }, null>;
+    checkSession: FetchApi<unknown, number>;
 } = {
     register: (body) => Fetch(`${userBaseApi}/register`, body),
     check: (body) => Fetch(`${userBaseApi}/check`, body),
@@ -67,4 +68,5 @@ export const user_api: {
     add: (body) => Fetch(`${userBaseApi}/insertUser`, body),
     update: (body) => Fetch(`${userBaseApi}/updateUser`, body),
     delete: (body) => Fetch(`${userBaseApi}/deleteUser`, body),
+    checkSession: () => Fetch(`${userBaseApi}/checkSession`),
 };

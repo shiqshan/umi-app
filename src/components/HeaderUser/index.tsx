@@ -35,7 +35,7 @@ const items: MenuProps['items'] = [
         onClick: () => {
             user_api.logout().then((res) => {
                 if (res.success) {
-                    history.push('/');
+                    history.push('/login');
                 }
             });
         },
