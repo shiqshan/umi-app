@@ -9,7 +9,7 @@ const Register = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const onFinish = (values: IRegisterParams) => {
-        doCheck({ ...values });
+        doRegister({ ...values });
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -17,13 +17,13 @@ const Register = () => {
     };
 
     const doCheck = ({ username, password }: IRegisterParams) => {
-        user_api.check({ username }).then((res) => {
+        user_api.isExist({ username }).then((res) => {
             const { success, message: msg, data } = res || {};
-            // 1 不存在，可以注册  0已存在，不能注册
-            if (success && data == 1) {
+            // 1 存在, 不能注册  0不存在， 可以注册
+            if (success && data === 0) {
                 doRegister({ username, password });
             } else {
-                message.error('账号已注册');
+                message.error('该账号已注册');
             }
         });
     };

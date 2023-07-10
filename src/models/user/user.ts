@@ -13,7 +13,7 @@ const UserModel: UserModelType = {
     namespace: 'user',
 
     state: {
-        nickname: '游客模式',
+        nickname: '',
     },
 
     reducers: {

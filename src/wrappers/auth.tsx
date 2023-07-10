@@ -1,11 +1,11 @@
 import { Redirect } from 'umi';
 import { useEffect, useState } from 'react';
 import { user_api } from '@/api/user';
+import { PathEnum } from '@/routes';
 
 const Auth = (props: any) => {
     const isLogin = useAuth();
-
-    return <>{isLogin ? <div>{props.children}</div> : <Redirect to="/login" />}</>;
+    return <>{isLogin ? <div>{props.children}</div> : <Redirect to={PathEnum.Login} />}</>;
 };
 
 export default Auth;

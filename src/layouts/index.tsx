@@ -5,6 +5,10 @@ import global from '../global.less';
 import HeaderUser from '@/components/HeaderUser';
 import MyMenu, { BreadcrumbConfig } from '@/menu';
 import { IRouteComponentProps } from 'umi';
+import { connect } from '@@/plugin-dva/exports';
+import { Dispatch } from '@@/plugin-dva/connect';
+import { user_api } from '@/api/user';
+import { PathEnum } from '@/routes';
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -14,16 +18,35 @@ const BasicLayout = (props: any) => {
         children,
         history,
         match,
-    }: IRouteComponentProps = props;
+        dispatch,
+    }: IRouteComponentProps & { dispatch: Dispatch } = props;
     const [path, setPath] = useState<string>(pathname);
     // console.log('9898', location, match);
 
     useEffect(() => {
         // history的listen方法可以监听路径的修改
-        history.listen((location: { pathname: string }) => {
-            setPath(location.pathname);
+        const unlisten = history.listen((location: { pathname: string }) => {
+            if (location.pathname != PathEnum.Login && location.pathname != PathEnum.Register) {
+                setPath(location.pathname);
+            }
         });
+
+        getUserInfo();
+
+        return () => {
+            unlisten();
+        };
     }, []);
+
+    const getUserInfo = () => {
+        user_api.getInfo().then((res) => {
+            if (res?.success) {
+                dispatch({ type: 'user/save', payload: res.data || {} });
+            } else {
+                dispatch({ type: 'user/save', payload: { nickname: '游客模式' } });
+            }
+        });
+    };
 
     const onSelect = ({ item, key, keyPath }: any) => {
         console.log('9898', key);
@@ -66,4 +89,4 @@ const BasicLayout = (props: any) => {
     );
 };
 
-export default BasicLayout;
+export default connect(null, (dispatch: Dispatch) => ({ dispatch: dispatch }))(BasicLayout);

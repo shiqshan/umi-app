@@ -12,7 +12,7 @@ export interface ILoginParams {
 }
 
 export interface UserInfo {
-    id: string;
+    id?: string;
     username?: string;
     password?: string;
     nickname?: string;
@@ -51,8 +51,9 @@ export interface IRegisterParams {
 
 export const user_api: {
     register: FetchApi<IRegisterParams>;
-    check: FetchApi<{ username: string }, number>;
+    isExist: FetchApi<{ username: string }, number>;
     login: FetchApi<ILoginParams, UserInfo>;
+    getInfo: FetchApi;
     logout: FetchApi<null, string>;
     list: FetchApi<IUserListParam, Pager<UserInfo>>;
     add: FetchApi<AddUserBody, UserInfo>;
@@ -61,8 +62,9 @@ export const user_api: {
     checkSession: FetchApi<unknown, number>;
 } = {
     register: (body) => Fetch(`${userBaseApi}/register`, body),
-    check: (body) => Fetch(`${userBaseApi}/check`, body),
+    isExist: (body) => Fetch(`${userBaseApi}/is_exist`, body),
     login: (body) => Fetch(`${userBaseApi}/login`, body),
+    getInfo: () => Fetch(`${userBaseApi}/info`),
     logout: () => Fetch(`${userBaseApi}/logout`),
     list: (body) => Fetch(`${userBaseApi}/getUserList`, body),
     add: (body) => Fetch(`${userBaseApi}/insertUser`, body),

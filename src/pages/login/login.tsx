@@ -3,10 +3,9 @@ import styles from './index.less';
 import { Button, Checkbox, Divider, Form, Input, message, Space } from 'antd';
 import { ILoginParams, user_api } from '@/api/user';
 import Icon, { UserOutlined, LockOutlined, WechatFilled } from '@ant-design/icons';
-import { connect, history, Dispatch } from 'umi';
-import { useAuth } from '@/wrappers/auth';
+import { history } from 'umi';
 
-const Login = ({ dispatch }: { dispatch: Dispatch }) => {
+const Login = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const onFinish = (values: ILoginParams) => {
@@ -25,7 +24,6 @@ const Login = ({ dispatch }: { dispatch: Dispatch }) => {
                 const { success, message: msg, data } = res || {};
                 if (success) {
                     setLocalStorage({ username, password });
-                    dispatch({ type: 'user/save', payload: { ...data } });
                     history.push(`/user/list`);
                 } else {
                     msg && message.error(msg);
@@ -173,4 +171,4 @@ const QQSvg = () => (
     </svg>
 );
 
-export default connect(null, (dispatch: Dispatch) => ({ dispatch }))(Login);
+export default Login;

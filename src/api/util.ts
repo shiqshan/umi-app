@@ -30,6 +30,10 @@ export const Fetch = async <F = unknown, T = unknown>(url: string, data?: F, ini
         ...init,
     })
         .then(async (res) => {
+            // console.log('9898res', res, res.headers?.get('Redirect'));
+            if (res.status === 302 && res.headers?.get('Redirect')) {
+                window.location.href = '/login';
+            }
             if (res.redirected) {
                 location.reload();
             } else {
@@ -45,7 +49,7 @@ export const Fetch = async <F = unknown, T = unknown>(url: string, data?: F, ini
         })
         .catch((e) => {
             // history.replace('/login');
-            // message.error('服务器异常');
+            message.error('访问服务器失败');
         })
         .finally(() => {});
 };
