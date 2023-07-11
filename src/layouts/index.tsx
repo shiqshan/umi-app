@@ -67,6 +67,7 @@ const BasicLayout = (props: any) => {
             <Layout>
                 <Sider width={230} className="site-layout-background">
                     <Menu
+                        theme={'light'}
                         mode="inline"
                         // defaultSelectedKeys={[pathname]}
                         selectedKeys={[path]}

@@ -24,7 +24,7 @@ const AccountSetting = () => {
     return (
         <div className={styles.main}>
             <div className={styles.left}>
-                <Menu items={items} mode="inline" onSelect={onSelect} selectedKeys={[key]} />
+                <Menu items={items} mode="inline" onSelect={onSelect} selectedKeys={[key]} style={{ height: '100%' }} />
             </div>
             <div className={styles.right}>
                 {key === '1' && <BaseSetting />}
