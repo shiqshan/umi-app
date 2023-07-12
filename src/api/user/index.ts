@@ -49,6 +49,12 @@ export interface IRegisterParams {
     password: string;
 }
 
+export interface UpdateParams {
+    avatar?: string;
+    nickname?: string;
+    tel_number?: string;
+}
+
 export const user_api: {
     register: FetchApi<IRegisterParams>;
     isExist: FetchApi<{ username: string }, number>;
@@ -60,6 +66,7 @@ export const user_api: {
     update: FetchApi<AddUserBody, UserInfo>;
     delete: FetchApi<{ id: string }, null>;
     checkSession: FetchApi<unknown, number>;
+    update_baseInfo: FetchApi<UpdateParams, UserInfo>;
 } = {
     register: (body) => Fetch(`${userBaseApi}/register`, body),
     isExist: (body) => Fetch(`${userBaseApi}/is_exist`, body),
@@ -71,4 +78,5 @@ export const user_api: {
     update: (body) => Fetch(`${userBaseApi}/updateUser`, body),
     delete: (body) => Fetch(`${userBaseApi}/deleteUser`, body),
     checkSession: () => Fetch(`${userBaseApi}/checkSession`),
+    update_baseInfo: (body) => Fetch(`${userBaseApi}/update_baseinfo`, body),
 };

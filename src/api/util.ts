@@ -19,6 +19,8 @@ export interface Pager<T> {
     list?: T[];
 }
 
+export const downlodad = (fielName: string) => `/api/common/download?fileName=${fielName}`;
+
 export const Fetch = async <F = unknown, T = unknown>(url: string, data?: F, init?: RequestInit): Promise<T> => {
     return fetch(url, {
         credentials: 'include',

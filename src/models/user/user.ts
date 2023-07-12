@@ -14,6 +14,7 @@ const UserModel: UserModelType = {
 
     state: {
         nickname: '',
+        avatar: '',
     },
 
     reducers: {

@@ -7,6 +7,7 @@ import { user_api, UserInfo } from '@/api/user';
 import { connect, history } from 'umi';
 import { PathEnum } from '@/routes';
 import { ConnectProps } from '@@/plugin-dva/connect';
+import { downlodad } from '@/api/util';
 
 const items: MenuProps['items'] = [
     {
@@ -65,7 +66,7 @@ const HeaderUser: React.FC<IProps> = (props) => {
             <a onClick={(e) => e.preventDefault()}>
                 {/*<UserAvatar />*/}
                 <div className={global.action}>
-                    <Avatar size="small" style={{ marginRight: '8px' }} icon={<img src={user?.avatar || defaultImg} />} />
+                    <Avatar size="small" style={{ marginRight: '8px' }} icon={<img src={user?.avatar ? downlodad(user.avatar) : defaultImg} />} />
                     <span style={{ color: '#fff' }}>{user?.nickname || user?.username}</span>
                 </div>
             </a>
