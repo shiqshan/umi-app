@@ -4,8 +4,8 @@ import { IRoute } from 'umi'; // 引入的 umi 里的路由接口定义规则
  */
 //路径映射
 export enum PathEnum {
-    Login = './login',
-    Register = './register',
+    Login = '/login',
+    Register = '/register',
     Dashboard_Analyze = '/dashboard/analyze',
     Dashboard_Workbench = '/dashboard/workbench',
     Dashboard_Rotate = '/dashboard/rotate',
@@ -15,6 +15,7 @@ export enum PathEnum {
 
     Account_Center = '/account/center',
     Account_Setting = '/account/setting',
+    Account_SetPassword = '/account/set-password',
 
     LOL_HeroList = '/lol/hero-list',
     LOL_HeroDetail = '/lol/hero-detail/:id',
@@ -37,6 +38,7 @@ export const Routes: IRoute[] = [
             { path: PathEnum.Dashboard_Rotate, component: '@/pages/dashboard/rotate' },
             { path: PathEnum.Account_Center, component: '@/pages/account/center' },
             { path: PathEnum.Account_Setting, component: '@/pages/account/setting' },
+            { path: PathEnum.Account_SetPassword, component: '@/pages/account/setPassword' },
             { path: PathEnum.LOL_HeroList, component: '@/pages/lol/heroList' },
             { path: PathEnum.LOL_HeroDetail, component: '@/pages/lol/heroDetail' },
             { path: PathEnum.LOL_HeroBuy, component: '@/pages/lol/heroBuy' },

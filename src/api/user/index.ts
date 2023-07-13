@@ -2,6 +2,7 @@
  * user接口定义
  */
 import { Fetch, FetchApi, Pager } from '@/api/util';
+import SetPassword from '@/pages/account/setPassword';
 
 //user 接口
 const userBaseApi = '/api/user';
@@ -55,6 +56,11 @@ export interface UpdateParams {
     tel_number?: string;
 }
 
+export interface SetPasswordParams {
+    oldPassword: string;
+    newPassword: string;
+}
+
 export const user_api: {
     register: FetchApi<IRegisterParams>;
     isExist: FetchApi<{ username: string }, number>;
@@ -67,6 +73,7 @@ export const user_api: {
     delete: FetchApi<{ id: string }, null>;
     checkSession: FetchApi<unknown, number>;
     update_baseInfo: FetchApi<UpdateParams, UserInfo>;
+    set_password: FetchApi<SetPasswordParams>;
 } = {
     register: (body) => Fetch(`${userBaseApi}/register`, body),
     isExist: (body) => Fetch(`${userBaseApi}/is_exist`, body),
@@ -79,4 +86,5 @@ export const user_api: {
     delete: (body) => Fetch(`${userBaseApi}/deleteUser`, body),
     checkSession: () => Fetch(`${userBaseApi}/checkSession`),
     update_baseInfo: (body) => Fetch(`${userBaseApi}/update_baseinfo`, body),
+    set_password: (body) => Fetch(`${userBaseApi}/set_password`, body),
 };

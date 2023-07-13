@@ -21,7 +21,7 @@ const BasicLayout = (props: any) => {
         dispatch,
     }: IRouteComponentProps & { dispatch: Dispatch } = props;
     const [path, setPath] = useState<string>(pathname);
-    // console.log('9898', location, match);
+    // console.log('9898', location, path);
 
     useEffect(() => {
         // history的listen方法可以监听路径的修改

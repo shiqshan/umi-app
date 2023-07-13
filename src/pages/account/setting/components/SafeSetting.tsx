@@ -1,6 +1,8 @@
 import React from 'react';
 import { Avatar, List, Skeleton } from 'antd';
 import { PhoneTwoTone, UnlockTwoTone, BulbTwoTone, MailTwoTone } from '@ant-design/icons';
+import { history } from 'umi';
+import { PathEnum } from '@/routes';
 
 /**
  * 安全设置
@@ -16,7 +18,13 @@ const SafeSetting = () => {
                 dataSource={[1]}
                 renderItem={(item) => (
                     <>
-                        <List.Item actions={[<a key="list-loadmore-more">修改</a>]}>
+                        <List.Item
+                            actions={[
+                                <a key="list-loadmore-more" onClick={() => history.push(PathEnum.Account_SetPassword)}>
+                                    修改
+                                </a>,
+                            ]}
+                        >
                             <List.Item.Meta title={'账户密码'} description={'当前密码强度：强'} avatar={<UnlockTwoTone />} />
                         </List.Item>
 
