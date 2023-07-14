@@ -27,9 +27,7 @@ const HeroModel: HeroModelType = {
     },
 
     effects: {
-        *query({ payload }, { call, put }) {
-
-        },
+        *query({ payload }, { call, put }) {},
 
         *fetch({ type, payload }, { put, call, select }) {
             // const data: [] = yield request('/web201605/js/herolist.json');
@@ -56,7 +54,7 @@ const HeroModel: HeroModelType = {
                 type: 'save',
                 payload: {
                     heros: data || [],
-                    list: data.hero || []
+                    list: data.hero || [],
                 },
             });
         },
@@ -73,14 +71,15 @@ const HeroModel: HeroModelType = {
 
     subscriptions: {
         setup({ dispatch, history }) {
+            // @ts-ignore
             return history.listen(({ pathname }) => {
                 if (pathname === '/hero') {
                     dispatch({
-                        type: 'fetch'
-                    })
+                        type: 'fetch',
+                    });
                 }
             });
-        }
+        },
     },
 };
 

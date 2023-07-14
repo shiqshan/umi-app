@@ -13,6 +13,7 @@ const UserModel: UserModelType = {
     namespace: 'user',
 
     state: {
+        id: '',
         nickname: '',
         avatar: '',
     },

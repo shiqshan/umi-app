@@ -18,6 +18,7 @@ export enum PathEnum {
     Account_SetPassword = '/account/set-password',
 
     LOL_HeroList = '/lol/hero-list',
+    LOL_OrderList = '/lol/order-list',
     LOL_HeroDetail = '/lol/hero-detail/:id',
     LOL_HeroBuy = '/lol/hero-buy',
 }
@@ -40,6 +41,7 @@ export const Routes: IRoute[] = [
             { path: PathEnum.Account_Setting, component: '@/pages/account/setting' },
             { path: PathEnum.Account_SetPassword, component: '@/pages/account/setPassword' },
             { path: PathEnum.LOL_HeroList, component: '@/pages/lol/heroList' },
+            { path: PathEnum.LOL_OrderList, component: '@/pages/lol/orderList' },
             { path: PathEnum.LOL_HeroDetail, component: '@/pages/lol/heroDetail' },
             { path: PathEnum.LOL_HeroBuy, component: '@/pages/lol/heroBuy' },
 

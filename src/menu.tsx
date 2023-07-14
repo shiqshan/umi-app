@@ -13,6 +13,7 @@ export const BreadcrumbConfig = new Map<string, string[]>([
     [PathEnum.Account_Center, ['个人管理', '个人中心']],
     [PathEnum.Account_Setting, ['个人管理', '个人设置']],
     [PathEnum.LOL_HeroList, ['英雄联盟', '英雄列表']],
+    [PathEnum.LOL_OrderList, ['英雄联盟', '购买记录']],
 ]);
 
 const MyMenu: MenuProps['items'] = [
@@ -47,6 +48,11 @@ const MyMenu: MenuProps['items'] = [
                 key: PathEnum.LOL_HeroList,
                 icon: null,
                 label: `英雄列表`,
+            },
+            {
+                key: PathEnum.LOL_OrderList,
+                icon: null,
+                label: `购买记录`,
             },
         ],
     },

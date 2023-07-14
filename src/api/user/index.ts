@@ -13,7 +13,7 @@ export interface ILoginParams {
 }
 
 export interface UserInfo {
-    id?: string;
+    id: string;
     username?: string;
     password?: string;
     nickname?: string;
