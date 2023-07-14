@@ -41,7 +41,18 @@ const BasicLayout = (props: any) => {
     const getUserInfo = () => {
         user_api.getInfo().then((res) => {
             if (res?.success) {
-                dispatch({ type: 'user/save', payload: res.data || {} });
+                // select id, username, nickname, avatar, age, address, sex, tel_number, qq, create_time from user
+                dispatch({
+                    type: 'user/save',
+                    payload: {
+                        id: res.data?.id,
+                        username: res.data?.username,
+                        nickname: res.data?.nickname,
+                        avatar: res.data?.avatar,
+                        createTime: res.data?.createTime,
+                        tel_number: res.data?.tel_number,
+                    },
+                });
             } else {
                 dispatch({ type: 'user/save', payload: { nickname: '游客模式' } });
             }

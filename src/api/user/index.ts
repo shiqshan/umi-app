@@ -65,7 +65,7 @@ export const user_api: {
     register: FetchApi<IRegisterParams>;
     isExist: FetchApi<{ username: string }, number>;
     login: FetchApi<ILoginParams, UserInfo>;
-    getInfo: FetchApi;
+    getInfo: FetchApi<unknown, UserInfo>;
     logout: FetchApi<null, string>;
     list: FetchApi<IUserListParam, Pager<UserInfo>>;
     add: FetchApi<AddUserBody, UserInfo>;
