@@ -41,7 +41,7 @@ const SetPassword = () => {
     };
 
     const onFinishFailed = ({ values, errorFields }: any) => {
-        console.log('9898', errorFields);
+        // console.log('9898', errorFields);
         // @ts-ignore
         errorFields.map((item) => {
             if (item.name?.[0] === 'okPassword') {
