@@ -2,7 +2,7 @@ import { Fetch, FetchApi, FetchResult } from '@/api/util';
 
 export const heroListApi = 'https://game.gtimg.cn/images/lol/act/img/js/heroList/hero_list.js';
 export const heroSkinListApi = 'https://game.gtimg.cn/images/lol/act/img/js/cuSkinList/cuskin_list.js';
-export const heroAvatarApi = 'https://game.gtimg.cn/images/lol/act/img/champion/';
+export const heroAvatarApi = 'https://game.gtimg.cn/images/lol/act/img/champion';
 export const heroBaseSkinApi = 'https://game.gtimg.cn/images/lol/act/img/skinloading/';
 export const heroDetailApi = 'https://game.gtimg.cn/images/lol/act/img/js/hero/';
 
@@ -102,7 +102,7 @@ export const lol_api: {
 } = {
     hero_list: () => fetch(heroListApi).then(async (res) => await res.json()),
     skin_list: () => fetch(heroSkinListApi).then(async (res) => await res.json()),
-    get_avatar: (heroName) => fetch(`${heroAvatarApi}${heroName}.png`).then(async (res) => await res.json()),
+    get_avatar: (heroName) => fetch(`${heroAvatarApi}/${heroName}.png`).then(async (res) => await res.json()),
     get_base_skin: (skinId) => fetch(`${heroBaseSkinApi}${skinId}.jpg`).then(async (res) => await res.json()),
     get_detail: (heroId) => fetch(`${heroDetailApi}${heroId}.js`).then(async (res) => await res.json()),
 };

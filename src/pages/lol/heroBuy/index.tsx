@@ -13,7 +13,12 @@ const HeroBuy = (props: any) => {
     const info: HeroDetail = state?.info;
 
     const doBuy = () => {
-        order_api.buy({ productId: info?.hero.heroId, orderAmount: info?.hero.goldPrice }).then((res) => {
+        const bodyData = {
+            productId: info?.hero.heroId,
+            productInfo: info?.hero,
+            orderAmount: info?.hero.goldPrice,
+        };
+        order_api.buy(bodyData).then((res) => {
             if (res?.success) {
                 message.success('已购买');
             } else {

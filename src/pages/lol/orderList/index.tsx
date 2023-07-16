@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Popconfirm, Space, Table } from 'antd';
+import { Avatar, Badge, Popconfirm, Space, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { order_api, OrderInfo } from '@/api/order';
-import { user_api } from '@/api/user';
+import styles from './index.less';
+import { heroAvatarApi } from '@/api/lol';
 
 const OrderList = () => {
     const [data, setData] = useState<OrderInfo[]>([]);
@@ -16,7 +17,7 @@ const OrderList = () => {
 
     useEffect(() => {
         getList();
-    }, []);
+    }, [params]);
 
     const getList = () => {
         setLoading(true);
@@ -41,6 +42,17 @@ const OrderList = () => {
             title: '商品信息',
             dataIndex: 'productId',
             key: 'productId',
+            render: (_, record) => (
+                <div className={styles.avatar_wrap}>
+                    <Avatar shape="square" size={48} src={`${heroAvatarApi}/${record?.productInfo?.alias}.png`} />
+                    {record.productInfo ? (
+                        <div style={{ marginLeft: '8px' }}>
+                            <div className={styles.avatar_title}>{record?.productInfo?.name + '-' + record?.productInfo?.title}</div>
+                            <div className={styles.avatar_desc}>￥{record.productInfo.goldPrice}</div>
+                        </div>
+                    ) : null}
+                </div>
+            ),
         },
         {
             title: '支付金额',
@@ -51,6 +63,7 @@ const OrderList = () => {
             title: '支付状态',
             dataIndex: 'orderStatus',
             key: 'orderStatus',
+            render: () => <Badge status="success" text={'已支付'} />,
         },
         {
             title: '下单日期',
@@ -83,8 +96,9 @@ const OrderList = () => {
                 columns={columns}
                 dataSource={data}
                 loading={loading}
-                size={'middle'}
+                size={'small'}
                 rowKey={(record) => record.orderId}
+                scroll={{ y: 560 }}
                 pagination={{
                     pageSize: params.size,
                     current: params.page,

@@ -1,4 +1,5 @@
 import { Fetch, FetchApi, Pager } from '@/api/util';
+import { HeroItem } from '@/api/lol';
 
 //user 接口
 const orderBaseApi = '/api/order';
@@ -7,6 +8,7 @@ export interface OrderInfo {
     orderId: number;
     userId: string;
     productId: string;
+    productInfo: HeroItem;
     orderDate: string;
     paymentStatus: string;
     orderAmount: string;
