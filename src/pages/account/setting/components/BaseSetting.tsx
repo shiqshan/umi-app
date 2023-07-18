@@ -8,13 +8,15 @@ import { connect } from 'umi';
 import { user_api, UserInfo } from '@/api/user';
 import { downlodad } from '@/api/util';
 import { Dispatch } from '@@/plugin-dva/connect';
+import { useDispatch } from '@@/plugin-dva/exports';
 
 /**
  * 基本设置
  * @constructor
  */
-const BaseSetting = ({ user, dispatch }: { user: UserInfo; dispatch: Dispatch }) => {
+const BaseSetting = ({ user }: { user: UserInfo }) => {
     const [form] = Form.useForm();
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -94,10 +96,8 @@ const BaseSetting = ({ user, dispatch }: { user: UserInfo; dispatch: Dispatch })
             .then((res) => {
                 if (res?.success) {
                     message.success('修改成功');
-                    user_api.getInfo().then((res) => {
-                        if (res?.success) {
-                            dispatch({ type: 'user/save', payload: res.data || {} });
-                        }
+                    dispatch({
+                        type: 'user/getInfo',
                     });
                 } else {
                     message.success('修改失败');
@@ -164,7 +164,4 @@ const BaseSetting = ({ user, dispatch }: { user: UserInfo; dispatch: Dispatch })
     );
 };
 
-export default connect(
-    ({ user }: { user: UserInfo }) => ({ user: user }),
-    (dispatch: Dispatch) => ({ dispatch: dispatch }),
-)(BaseSetting);
+export default connect(({ user }: { user: UserInfo }) => ({ user: user }))(BaseSetting);

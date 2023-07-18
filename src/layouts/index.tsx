@@ -4,7 +4,7 @@ import styles from './index.less';
 import global from '../global.less';
 import HeaderUser from '@/components/HeaderUser';
 import MyMenu, { BreadcrumbConfig } from '@/menu';
-import { IRouteComponentProps } from 'umi';
+import { IRouteComponentProps, Link } from 'umi';
 import { connect } from '@@/plugin-dva/exports';
 import { Dispatch } from '@@/plugin-dva/connect';
 import { user_api } from '@/api/user';
@@ -31,33 +31,13 @@ const BasicLayout = (props: any) => {
             }
         });
 
-        getUserInfo();
-
+        dispatch({
+            type: 'user/getInfo',
+        });
         return () => {
             unlisten();
         };
     }, []);
-
-    const getUserInfo = () => {
-        user_api.getInfo().then((res) => {
-            if (res?.success) {
-                // select id, username, nickname, avatar, age, address, sex, tel_number, qq, create_time from user
-                dispatch({
-                    type: 'user/save',
-                    payload: {
-                        id: res.data?.id,
-                        username: res.data?.username,
-                        nickname: res.data?.nickname,
-                        avatar: res.data?.avatar,
-                        createTime: res.data?.createTime,
-                        tel_number: res.data?.tel_number,
-                    },
-                });
-            } else {
-                dispatch({ type: 'user/save', payload: { nickname: '游客模式' } });
-            }
-        });
-    };
 
     const onSelect = ({ item, key, keyPath }: any) => {
         console.log('9898', key);
@@ -72,7 +52,6 @@ const BasicLayout = (props: any) => {
                 <div style={{ flex: '1 1 0%' }}></div>
                 <Space className={styles.header_right}>
                     <HeaderUser />
-                    <div className={global.action}></div>
                 </Space>
             </Header>
             <Layout>

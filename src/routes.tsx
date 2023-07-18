@@ -12,6 +12,7 @@ export enum PathEnum {
 
     User_List = '/user/list',
     User_Detail = '/user/detail',
+    User_Recharge = '/user/recharge',
 
     Account_Center = '/account/center',
     Account_Setting = '/account/setting',
@@ -34,6 +35,7 @@ export const Routes: IRoute[] = [
         routes: [
             { path: PathEnum.User_List, component: '@/pages/user/list' },
             { path: PathEnum.User_Detail, component: '@/pages/user/detail' },
+            { path: PathEnum.User_Recharge, component: '@/pages/user/recharge' },
             { path: PathEnum.Dashboard_Analyze, component: '@/pages/dashboard/analyze' },
             { path: PathEnum.Dashboard_Workbench, component: '@/pages/dashboard/workbench' },
             { path: PathEnum.Dashboard_Rotate, component: '@/pages/dashboard/rotate' },

@@ -26,6 +26,7 @@ export interface UserInfo {
     id_sort?: number;
     isDelete?: number;
     avatar?: string;
+    gold?: number;
 }
 
 export interface AddUserBody {
@@ -74,6 +75,7 @@ export const user_api: {
     checkSession: FetchApi<unknown, number>;
     update_baseInfo: FetchApi<UpdateParams, UserInfo>;
     set_password: FetchApi<SetPasswordParams>;
+    set_gold: FetchApi<{ gold: number }>;
 } = {
     register: (body) => Fetch(`${userBaseApi}/register`, body),
     isExist: (body) => Fetch(`${userBaseApi}/is_exist`, body),
@@ -87,4 +89,5 @@ export const user_api: {
     checkSession: () => Fetch(`${userBaseApi}/checkSession`),
     update_baseInfo: (body) => Fetch(`${userBaseApi}/update_baseinfo`, body),
     set_password: (body) => Fetch(`${userBaseApi}/set_password`, body),
+    set_gold: (body) => Fetch(`${userBaseApi}/set_gold`, body),
 };
