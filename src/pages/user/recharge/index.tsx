@@ -3,7 +3,6 @@ import { Button, Card, Col, Form, Descriptions, InputNumber, message, Row, Selec
 import styles from './index.less';
 import { connect } from 'umi';
 import { user_api, UserInfo } from '@/api/user';
-import loading from '@/Loading';
 import { LoadingOutlined } from '@ant-design/icons';
 import { ResultStatusType } from 'antd/es/result';
 import { useDispatch } from '@@/plugin-dva/exports';
@@ -41,7 +40,8 @@ const Recharge = ({ user }: { user: UserInfo }) => {
 
     //充值接口
     const doRecharge = () => {
-        user_api.set_gold({ gold: 500 }).then((res) => {
+        const amount = form?.getFieldValue('amount');
+        user_api.set_gold({ gold: amount }).then((res) => {
             Modal.destroyAll();
             if (res?.success && res.code == 1) {
                 setStatus('success');

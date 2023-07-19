@@ -5,13 +5,13 @@ import { HeroItem } from '@/api/lol';
 const orderBaseApi = '/api/order';
 
 export interface OrderInfo {
-    orderId: number;
+    orderId: string;
     userId: string;
     productId: string;
     productInfo: HeroItem;
     orderDate: string;
     paymentStatus: string;
-    orderAmount: string;
+    orderAmount: number;
     orderStatus: string;
 }
 
@@ -20,10 +20,25 @@ export interface ListParams {
     size: number;
 }
 
+export interface OrderParams {
+    productId?: string;
+    productInfo?: {};
+    orderAmount?: string;
+}
+
+export interface PayParams {
+    orderId: string;
+    orderAmount: number;
+}
+
 export const order_api: {
-    buy: FetchApi<{ productId: string | number; orderAmount: string | number }, OrderInfo>;
+    create: FetchApi<OrderParams, OrderInfo>;
     list: FetchApi<ListParams, Pager<OrderInfo>>;
+    getDetail: FetchApi<string, OrderInfo>;
+    pay: FetchApi<PayParams>;
 } = {
-    buy: (body) => Fetch(`${orderBaseApi}/buy`, body),
+    create: (body) => Fetch(`${orderBaseApi}/create`, body),
     list: (body) => Fetch(`${orderBaseApi}/list`, body),
+    getDetail: (orderId) => Fetch(`${orderBaseApi}/detail?orderId=${orderId}`),
+    pay: (body) => Fetch(`${orderBaseApi}/pay`, body),
 };

@@ -33,7 +33,7 @@ const HeroDetali = (props: IRouteComponentProps<{ id: string }>) => {
 
     const tabContent: Record<string, React.ReactNode> = {
         1: (
-            <Button type={'primary'} onClick={() => history.push(`/lol/hero-buy`, { info: info })}>
+            <Button type={'primary'} onClick={() => history.push(`/lol/hero-buy/${info?.hero.heroId}`)}>
                 购买
             </Button>
         ),

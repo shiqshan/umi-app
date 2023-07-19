@@ -31,13 +31,20 @@ const UserModel: UserModelType = {
 
     effects: {
         *getInfo({ type, payload }, { put, call, select }) {
-            // const data: [] = yield request('/web201605/js/herolist.json');
             const res: FetchResult<UserInfo> = yield user_api.getInfo();
             const data = res?.data;
             if (res?.success && res.code == 1) {
                 yield put({
                     type: 'save',
-                    payload: { ...data },
+                    payload: {
+                        id: res.data?.id,
+                        username: res.data?.username,
+                        nickname: res.data?.nickname || '',
+                        gold: res.data?.gold || 0,
+                        avatar: res.data?.avatar || '',
+                        createTime: res.data?.createTime,
+                        tel_number: res.data?.tel_number,
+                    },
                 });
             } else {
                 yield put({

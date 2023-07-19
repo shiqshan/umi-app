@@ -5,6 +5,9 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { order_api, OrderInfo } from '@/api/order';
 import styles from './index.less';
 import { heroAvatarApi } from '@/api/lol';
+import { PresetStatusColorType, PresetStatusColorTypes } from 'antd/es/_util/colors';
+import { Link } from 'umi';
+import { PathEnum } from '@/routes';
 
 const OrderList = () => {
     const [data, setData] = useState<OrderInfo[]>([]);
@@ -31,12 +34,23 @@ const OrderList = () => {
         });
     };
 
+    const getStatus = (status: string) => {
+        if (status == '0') {
+            return { status: 'error', text: '未支付' };
+        } else {
+            return { status: 'success', text: '已支付' };
+        }
+    };
     const columns: ColumnsType<OrderInfo> = [
         {
             title: '订单编号',
             dataIndex: 'orderId',
             key: 'orderId',
-            render: (text) => <a>{text}</a>,
+            render: (text) => (
+                <Link to={`/lol/hero-pay/paying/${text}`}>
+                    <a>{text}</a>
+                </Link>
+            ),
         },
         {
             title: '商品信息',
@@ -63,7 +77,9 @@ const OrderList = () => {
             title: '支付状态',
             dataIndex: 'orderStatus',
             key: 'orderStatus',
-            render: () => <Badge status="success" text={'已支付'} />,
+            render: (_, record) => (
+                <Badge status={getStatus(record?.paymentStatus).status as PresetStatusColorType} text={getStatus(record?.paymentStatus).text} />
+            ),
         },
         {
             title: '下单日期',
@@ -75,9 +91,9 @@ const OrderList = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a onClick={undefined}>修改</a>
+                    {/*<a onClick={undefined}>修改</a>*/}
                     <Popconfirm
-                        title="确定删除该用户吗?"
+                        title="确定删除该订单吗?"
                         onConfirm={undefined}
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         okText="确定"

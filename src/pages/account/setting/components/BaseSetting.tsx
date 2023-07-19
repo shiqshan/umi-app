@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, message, Space, Upload, Form, InputNumber, Input, Spin } from 'antd';
-import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, message, Upload, Form, Input, Spin } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import styles from '../index.less';
 import type { RcFile, UploadFile } from 'antd/es/upload/interface';
 import { connect } from 'umi';
 import { user_api, UserInfo } from '@/api/user';
 import { downlodad } from '@/api/util';
-import { Dispatch } from '@@/plugin-dva/connect';
 import { useDispatch } from '@@/plugin-dva/exports';
 
 /**

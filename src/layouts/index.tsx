@@ -7,7 +7,6 @@ import MyMenu, { BreadcrumbConfig } from '@/menu';
 import { IRouteComponentProps, Link } from 'umi';
 import { connect } from '@@/plugin-dva/exports';
 import { Dispatch } from '@@/plugin-dva/connect';
-import { user_api } from '@/api/user';
 import { PathEnum } from '@/routes';
 
 const { Header, Content, Sider, Footer } = Layout;

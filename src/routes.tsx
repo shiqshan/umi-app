@@ -21,7 +21,8 @@ export enum PathEnum {
     LOL_HeroList = '/lol/hero-list',
     LOL_OrderList = '/lol/order-list',
     LOL_HeroDetail = '/lol/hero-detail/:id',
-    LOL_HeroBuy = '/lol/hero-buy',
+    LOL_HeroBuy = '/lol/hero-buy/:id',
+    LOL_HeroPay = '/lol/hero-pay/paying/:id',
 }
 
 export const Routes: IRoute[] = [
@@ -46,6 +47,7 @@ export const Routes: IRoute[] = [
             { path: PathEnum.LOL_OrderList, component: '@/pages/lol/orderList' },
             { path: PathEnum.LOL_HeroDetail, component: '@/pages/lol/heroDetail' },
             { path: PathEnum.LOL_HeroBuy, component: '@/pages/lol/heroBuy' },
+            { path: PathEnum.LOL_HeroPay, component: '@/pages/lol/heroPay/paying' },
 
             /**404 须放在最下面**/
             { component: '@/pages/404/index' },

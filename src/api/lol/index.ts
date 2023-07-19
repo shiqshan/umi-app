@@ -47,6 +47,7 @@ export interface HeroItem {
     roles: string[];
     selectAudio: string;
     title: string;
+    shortBio: string; //英雄描述
 }
 
 //皮肤出参
@@ -88,7 +89,7 @@ export interface SpellsItem {
 }
 
 export interface HeroDetail {
-    hero: HeroItem & { shortBio: string }; //英雄描述
+    hero: HeroItem;
     skins: SkinItem[];
     spells: SpellsItem[];
 }
