@@ -37,7 +37,7 @@ const Register = () => {
                 if (success) {
                     info();
                 } else {
-                    message.error(msg);
+                    msg && message.error(msg);
                 }
             })
             .finally(() => {
@@ -61,34 +61,45 @@ const Register = () => {
 
     return (
         <div className={styles.main}>
-            <div className={styles.pannel}>
+            <div className={styles.register_wrap}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div>h欢迎</div>
+                    <div></div>
                     <Button type={'link'} onClick={() => history.push('/login')}>
                         返回登录
                     </Button>
                 </div>
-                <div className={styles.form_wrap}>
-                    <h2>账号注册</h2>
+                <div className={styles.register_form_wrap}>
+                    <h2 style={{ fontWeight: 400, textAlign: 'center' }}>账号注册</h2>
                     <Form
                         title={'账号注册'}
                         className={styles.login_form}
                         name="basic"
-                        initialValues={{ remember: true }}
+                        // initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        autoComplete="on"
+                        autoComplete="new-password"
                     >
                         <Form.Item label="" name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-                            <Input placeholder={'请输入用户名'} prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
+                            <Input
+                                placeholder={'请输入用户名'}
+                                autoComplete="new-password"
+                                prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}
+                                size={'large'}
+                            />
                         </Form.Item>
 
                         <Form.Item label="" name="password" rules={[{ required: true, message: '请输入密码' }]}>
-                            <Input.Password placeholder={'请输入密码'} prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
+                            <Input
+                                placeholder={'请输入密码'}
+                                type="password"
+                                autoComplete="new-password"
+                                prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}
+                                size={'large'}
+                            />
                         </Form.Item>
 
-                        {/*<Form.Item label='' name='password' rules={[{ required: true, message: '请确认密码' }]}>*/}
-                        {/*    <Input.Password*/}
+                        {/*<Form.Item label='' name='okPassword' rules={[{ required: true, message: '请确认密码' }]}>*/}
+                        {/*    <Input*/}
                         {/*        placeholder={'请再次确认密码'}*/}
                         {/*        prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}*/}
                         {/*        size={'large'}*/}

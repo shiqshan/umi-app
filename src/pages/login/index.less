@@ -10,21 +10,34 @@
     width: 100vw;
     background: #f1f1f1;
     //background: url('https://img.js.design/assets/Resources/background/login-bg-5.jpg') no-repeat;
-    background: url('../../public/image/loginbg001.jpg') no-repeat;
-    background-size: 100% 100%;
+    //background: url('../../public/image/loginbg001.jpg') no-repeat;
+    //background-size: 100% 100%;
 }
 
-.pannel {
-}
-
-.pannel {
-    width: 800px;
-    min-height: 600px;
-    padding: 35px;
+.panel {
+    width: 1000px;
+    height: 500px;
+    //padding: 35px;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
     border: 1px solid #d8d8d8;
+    display: flex;
+
     //box-shadow: rgba(23, 25, 29, 0.2) 0px 16px 16px -16px, rgba(23, 25, 29, 0.03) 0px 14px 20px 0px, rgba(23, 25, 29, 0.04) 0px 0px 0px 1px;
+    .panel_left {
+        background: gainsboro;
+        width: 480px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .panel_right {
+        //background: pink;
+        flex: 1;
+    }
 
     h2 {
         text-align: center;
@@ -34,7 +47,7 @@
 }
 
 .form_wrap {
-    padding: 60px 210px 0;
+    padding: 30px 100px;
     //min-height: 400px;
 }
 
@@ -57,4 +70,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.register_wrap {
+    width: 800px;
+    min-height: 600px;
+    padding: 35px;
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid #d8d8d8;
+}
+.register_form_wrap {
+    padding: 60px 210px 0;
 }

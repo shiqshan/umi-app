@@ -50,70 +50,74 @@ const Login = () => {
 
     return (
         <div className={styles.main}>
-            <div className={styles.pannel}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div>h欢迎</div>
-                    <Button type={'link'} onClick={() => history.push('/register')}>
-                        注册账号
-                    </Button>
+            <div className={styles.panel}>
+                <div className={styles.panel_left}>
+                    <img src={'https://www.zikunscrm.com/static/media/sologon.a2a8d0e7.jpg'} alt={''} />
                 </div>
-                <div className={styles.form_wrap}>
-                    <h2>登录账号</h2>
-                    <Form
-                        className={styles.login_form}
-                        name="basic"
-                        initialValues={{
-                            remember: true,
-                            username: getLocalStorage().username,
-                            password: getLocalStorage().password,
-                        }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="on"
-                    >
-                        <Form.Item label="" name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-                            <Input prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
-                        </Form.Item>
-
-                        <Form.Item label="" name="password" rules={[{ required: true, message: '请输入密码' }]}>
-                            <Input.Password prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
-                        </Form.Item>
-
-                        <Form.Item>
-                            <Form.Item name="remember" valuePropName="checked" noStyle>
-                                <Checkbox>记住密码</Checkbox>
-                            </Form.Item>
-                            <a style={{ float: 'right' }}>忘记密码</a>
-                        </Form.Item>
-
-                        <div style={{ fontSize: '12px' }} className={styles.agree_desc}>
-                            <a type={'link'} onClick={() => history.push(`/dashboard/analyze`)}>
-                                没有账号？游客进入
-                            </a>
-                            <div>
-                                登录即表示您已同意《<a>服务条款</a>》
-                            </div>
-                        </div>
-                        <Button type="primary" htmlType="submit" block size={'large'} className={styles.login_btn} loading={loading}>
-                            登录
+                <div className={styles.panel_right}>
+                    <div style={{ float: 'right', marginTop: 10 }}>
+                        <Button type={'link'} onClick={() => history.push('/register')}>
+                            注册账号
                         </Button>
-                        {/*第三方登录*/}
-                        <div>
-                            <Divider style={{ borderColor: '#e8e8e8' }} plain>
-                                {'第三方登录'}
-                            </Divider>
-                        </div>
-                        <div style={{ textAlign: 'center' }}>
-                            <Space size={'middle'}>
-                                <a>
-                                    <Icon component={QQSvg} />
+                    </div>
+                    <div className={styles.form_wrap}>
+                        <h2 style={{ fontWeight: 400, textAlign: 'center' }}>登录账号</h2>
+                        <Form
+                            className={styles.login_form}
+                            name="basic"
+                            initialValues={{
+                                remember: true,
+                                username: getLocalStorage().username,
+                                password: getLocalStorage().password,
+                            }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                            autoComplete="on"
+                        >
+                            <Form.Item label="" name="username" rules={[{ required: true, message: '请输入用户名' }]}>
+                                <Input prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
+                            </Form.Item>
+
+                            <Form.Item label="" name="password" rules={[{ required: true, message: '请输入密码' }]}>
+                                <Input.Password prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />} size={'large'} />
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Form.Item name="remember" valuePropName="checked" noStyle>
+                                    <Checkbox>记住密码</Checkbox>
+                                </Form.Item>
+                                <a style={{ float: 'right' }}>忘记密码</a>
+                            </Form.Item>
+
+                            <div style={{ fontSize: '12px' }} className={styles.agree_desc}>
+                                <a type={'link'} onClick={() => history.push(`/dashboard/analyze`)}>
+                                    没有账号？游客进入
                                 </a>
-                                <a>
-                                    <WechatFilled style={{ fontSize: '30px', color: '#00c250' }} />
-                                </a>
-                            </Space>
-                        </div>
-                    </Form>
+                                <div>
+                                    登录即表示您已同意《<a>服务条款</a>》
+                                </div>
+                            </div>
+                            <Button type="primary" htmlType="submit" block size={'large'} className={styles.login_btn} loading={loading}>
+                                登录
+                            </Button>
+                            {/*第三方登录*/}
+                            <div>
+                                <Divider style={{ borderColor: '#e8e8e8' }} plain>
+                                    {'第三方登录'}
+                                </Divider>
+                            </div>
+                            <div style={{ textAlign: 'center' }}>
+                                <Space size={'middle'}>
+                                    <a>
+                                        <Icon component={QQSvg} />
+                                    </a>
+                                    <a>
+                                        <WechatFilled style={{ fontSize: '30px', color: '#00c250' }} />
+                                    </a>
+                                </Space>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
             </div>
         </div>
