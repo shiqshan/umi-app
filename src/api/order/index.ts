@@ -36,9 +36,11 @@ export const order_api: {
     list: FetchApi<ListParams, Pager<OrderInfo>>;
     getDetail: FetchApi<string, OrderInfo>;
     pay: FetchApi<PayParams>;
+    delete: FetchApi<{ orderId: string | number }>;
 } = {
     create: (body) => Fetch(`${orderBaseApi}/create`, body),
     list: (body) => Fetch(`${orderBaseApi}/list`, body),
     getDetail: (orderId) => Fetch(`${orderBaseApi}/detail?orderId=${orderId}`),
     pay: (body) => Fetch(`${orderBaseApi}/pay`, body),
+    delete: (body) => Fetch(`${orderBaseApi}/delete`, body),
 };

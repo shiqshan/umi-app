@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Badge, Popconfirm, Space, Table } from 'antd';
+import { Avatar, Badge, message, Popconfirm, Space, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { order_api, OrderInfo } from '@/api/order';
@@ -41,6 +41,17 @@ const OrderList = () => {
             return { status: 'success', text: '已支付' };
         }
     };
+
+    const doDelete = (orderId: string | number) => {
+        order_api.delete({ orderId }).then((res) => {
+            if (res?.success) {
+                message.success('删除成功');
+                //刷新列表
+                getList();
+            }
+        });
+    };
+
     const columns: ColumnsType<OrderInfo> = [
         {
             title: '订单编号',
@@ -94,7 +105,7 @@ const OrderList = () => {
                     {/*<a onClick={undefined}>修改</a>*/}
                     <Popconfirm
                         title="确定删除该订单吗?"
-                        onConfirm={undefined}
+                        onConfirm={() => doDelete(record.orderId)}
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         okText="确定"
                         cancelText="取消"
