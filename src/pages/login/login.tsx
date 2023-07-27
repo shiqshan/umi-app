@@ -4,6 +4,7 @@ import { Button, Checkbox, Divider, Form, Input, message, Space } from 'antd';
 import { ILoginParams, user_api } from '@/api/user';
 import Icon, { UserOutlined, LockOutlined, WechatFilled } from '@ant-design/icons';
 import { history } from 'umi';
+import LeftPanel from '@/pages/login/leftPanel';
 
 const Login = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -52,7 +53,8 @@ const Login = () => {
         <div className={styles.main}>
             <div className={styles.panel}>
                 <div className={styles.panel_left}>
-                    <img src={'https://www.zikunscrm.com/static/media/sologon.a2a8d0e7.jpg'} alt={''} />
+                    {/*<img src={'https://www.zikunscrm.com/static/media/sologon.a2a8d0e7.jpg'} alt={''} />*/}
+                    <LeftPanel />
                 </div>
                 <div className={styles.panel_right}>
                     <div style={{ float: 'right', marginTop: 10 }}>
