@@ -64,6 +64,7 @@ const Paying: React.FC = (props: any) => {
                     });
                 } else {
                     setStatus('error');
+                    message.error(res?.message);
                     next();
                 }
             })

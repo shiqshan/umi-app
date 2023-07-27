@@ -42,8 +42,7 @@ const Login = () => {
 
     const getLocalStorage = () => {
         if (window.localStorage.getItem('sqs_user')) {
-            const data = JSON.parse(window.localStorage.getItem('sqs_user') || '');
-            return data;
+            return JSON.parse(window.localStorage.getItem('sqs_user') || '');
         } else {
             return { username: '', password: '' };
         }
@@ -53,7 +52,6 @@ const Login = () => {
         <div className={styles.main}>
             <div className={styles.panel}>
                 <div className={styles.panel_left}>
-                    {/*<img src={'https://www.zikunscrm.com/static/media/sologon.a2a8d0e7.jpg'} alt={''} />*/}
                     <LeftPanel />
                 </div>
                 <div className={styles.panel_right}>

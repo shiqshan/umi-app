@@ -63,13 +63,13 @@ const Register = () => {
         <div className={styles.main}>
             <div className={styles.register_wrap}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div></div>
+                    <div>欢迎来到嘎嘎~~</div>
                     <Button type={'link'} onClick={() => history.push('/login')}>
                         返回登录
                     </Button>
                 </div>
                 <div className={styles.register_form_wrap}>
-                    <h2 style={{ fontWeight: 400, textAlign: 'center' }}>账号注册</h2>
+                    <h2 style={{ fontWeight: 400 }}>账号注册</h2>
                     <Form
                         title={'账号注册'}
                         className={styles.login_form}

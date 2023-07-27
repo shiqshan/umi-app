@@ -2,6 +2,10 @@ import React from 'react';
 import { Carousel } from 'antd';
 import styles from './index.less';
 
+/**
+ * 登录页左侧轮播
+ * @constructor
+ */
 const LeftPanel: React.FC = () => {
     const imgList = [
         {

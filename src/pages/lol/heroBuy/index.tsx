@@ -5,6 +5,8 @@ import { HeroDetail, lol_api } from '@/api/lol';
 import { history } from 'umi';
 import { order_api } from '@/api/order';
 import { LoadingOutlined } from '@ant-design/icons';
+import { connect } from '@@/plugin-dva/exports';
+import { UserInfo } from '@/api/user';
 
 const HeroBuy = (props: any) => {
     console.log('9898', props);
@@ -13,6 +15,7 @@ const HeroBuy = (props: any) => {
         match: {
             params: { id },
         },
+        user,
     } = props;
 
     useEffect(() => {
@@ -68,8 +71,8 @@ const HeroBuy = (props: any) => {
                 <Descriptions bordered column={1} style={{ margin: '30px 0' }}>
                     <Descriptions.Item label="购买英雄">{(info?.hero?.name || '') + '-' + (info?.hero?.title || '')}</Descriptions.Item>
                     <Descriptions.Item label="所需金币">{info?.hero?.goldPrice || '-'}</Descriptions.Item>
-                    <Descriptions.Item label="当前拥有">10000</Descriptions.Item>
-                    <Descriptions.Item label="购买后剩余">3000</Descriptions.Item>
+                    <Descriptions.Item label="当前拥有">{user?.gold ?? 0}</Descriptions.Item>
+                    <Descriptions.Item label="购买后剩余">{(user?.gold ?? 0) - (Number(info?.hero?.goldPrice) || 0)}</Descriptions.Item>
                 </Descriptions>
                 <div style={{ textAlign: 'center' }}>
                     <Space>
@@ -86,4 +89,4 @@ const HeroBuy = (props: any) => {
     );
 };
 
-export default HeroBuy;
+export default connect(({ user }: { user: UserInfo }) => ({ user: user }))(HeroBuy);
