@@ -605,3 +605,9 @@ Code Split，代码分割（Code Split）
 splitChunks: {
 chunks: "all", // 对所有模块都进行分割
 }
+
+[//]: # (Webpack 原理系列十：HMR 原理全解析)
+https://zhuanlan.zhihu.com/p/410510492
+
+[//]: # (vite和webpack的区别)
+https://worktile.com/kb/p/53689
