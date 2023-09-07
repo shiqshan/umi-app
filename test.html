@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Title</title>
+</head>
+<style>
+    .div1 {
+        background: pink;
+        width: 200px;
+        height: 200px;
+    }
+
+    .div2 {
+        background: green;
+        width: 200px;
+        /*height: 100px;*/
+    }
+</style>
+<body>
+<div class='div1'>
+    <div class='div2'>22222</div>
+</div>
+
+<ul id='myList'>
+</ul>
+
+</body>
+
+<script>
+    function fn() {
+        console.log('fn');
+    }
+
+    // foo() // 前三次有效
+    // foo() // 后面再执行无效
+    // const foo = (fn) => {
+    //     // 需要实现的函数
+    //     let count = 0;
+    //     return function() {
+    //         if (count === 3) {
+    //             return;
+    //         } else {
+    //             count += 1;
+    //             fn.apply(this);
+    //             console.log('count', count);
+    //         }
+    //     };
+    // };
+
+    // const a = foo(() => console.log('hello'));
+
+    // 实现一个 run() 函数，可以批量异步的执行请求，但最终得到的结果顺序要和输入顺序保持一致（不能使用 Promise.all()）。
+    function run(fetchs = []) {
+        // 实现 run 函数
+        return new Promise(resolve => {
+            if (fetchs.length === 0) {
+                return [];
+            }
+            let result = [];
+            let index = 0;
+            let count = 0;
+            //[1,2,3]
+            const request = async () => {
+                let i = index;
+                index++;
+                try {
+                    const res = await fetchs[i];
+                    result[i] = res;
+                } catch (e) {
+                    result[i] = e;
+                } finally {
+                    count++;
+                }
+                if (count === fetchs.length) {
+                    resolve(result);
+                }
+            };
+            for (let i = 0; i < fetchs.length; i++) {
+                request();
+            }
+        });
+    }
+
+    function delay(str) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(str);
+            }, Math.random() * 1000);
+        });
+    }
+
+    // 批量执行 5 个请求
+    // run([delay('A'), delay('B'), delay('C'), delay('D'), delay('E')]).then(res => {
+    //     // console.log(res); // ["A", "B", "C", "D", "E"] 结果和输入顺序保持一致
+    // });
+
+    function sleep(value) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(value);
+            }, 2000);
+        });
+    }
+
+    async function out() {
+        const arr = ['爱', '我', '中', '华'];
+        for (let i = 0; i < arr.length; i++) {
+            const value = await sleep(arr[i]);
+            console.log(value);
+        }
+    }
+
+    const arr = [1, 4, 2, 0, -2, 33, 20];
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i; j++) {
+            let temp;
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    // console.log(arr);
+
+    const map = new Map();
+    map.set('name', 'jack');
+    map.set('age', 19);
+    map.set('sex', 1);
+
+    for (const [key, value] of map) {
+        console.log(key, value);
+    }
+
+    var list = ['item 1', 'item 2', 'item 3'];
+    var listContainer = document.getElementById('myList');
+
+    for (var i = 0; i < list.length; i++) {
+        var listItem = document.createElement('li');
+        listItem.innerHTML = list[i];
+        listContainer.appendChild(listItem);
+    }
+
+    /**
+     * 日志采集系统
+     * 1、每成功上报一条日志，奖励 1 分
+     * 2、每条日志每延迟上报 1 秒，扣 1 分
+     * 3、积累日志达到 100 条，必须立即上报
+     * 给出日志序列，根据该规则，计算首次上报能获得的最多积分数
+     * @param nums
+     */
+    function getMaxScore(nums) {
+        // 得分
+        let plus_score = [nums[0]];
+        // 扣分
+        let minus_score = [0];
+        // 总得分
+        let score = [nums[0]];
+
+        for (let i = 1; i < nums.length; i++) {
+            plus_score[i] = Math.min(100, plus_score[i - 1] + nums[i]);
+            minus_score[i] = minus_score[i - 1] + plus_score[i - 1];
+            score[i] = plus_score[i] - minus_score[i];
+            if (plus_score[i] >= 100) {
+                break;
+            }
+        }
+        console.log(score);
+    }
+    // getMaxScore([3, 7, 40, 10, 60]);
+
+    /**
+     * 学校的位置
+     * 假设学校和所有的学生家，走在一条直线上。
+     * 请问，学校要建在什么位置，能使得学校到各个学生家的距离之和最短？
+     * @param arr
+     * @returns {*}
+     */
+    function getSchopol(arr) {
+        const map = {};
+        for (let i = 0; i < arr.length; i++) {
+            let num = 0;
+            for (let j = 0; j < arr.length; j++) {
+                num = num + Math.abs(arr[i] - arr[j]);
+            }
+            map[num] = arr[i];
+        }
+        let minkey = Object.keys(map).sort((a, b) => a - b)[0];
+        return map[minkey];
+    }
+    // console.log(getSchopol([0, 20, 40, 10, 30]));
+
+    /**
+     * 找出通过车辆最多颜色
+     * 每秒只能通过一辆车,找出 N 秒内经过的最
+     * 多颜色的车辆数量
+     * 三种颜色编号为 0,1,2
+     */
+
+    function findCarNum(arr, n) {
+        const map = new Map();
+        arr.forEach(i => {
+            if (map.has(i)) {
+                map.set(i, map.get(i) + 1)
+            } else {
+                map.set(i, 1)
+            }
+        })
+        let max = 0;
+        console.log(map);
+        for (const [key, val] of map) {
+            if (val > max) {
+                max = val
+            }
+        }
+        return  max;
+    }
+    // console.log(findCarNum([0,1,1,2], 4));
+</script>
+</html>
