@@ -1,7 +1,11 @@
 import React from 'react';
 
 const detail = () => {
-    return <>用户详情</>;
+    return (
+        <>
+            <code>import React from 'react';</code>
+        </>
+    );
 };
 
 export default detail;

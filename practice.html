@@ -24,8 +24,8 @@
             let newObj = {};
             for (const objKey in obj) {
                 newObj[objKey] = deepClone(obj[objKey]);
-                return newObj;
             }
+            return newObj;
         } else {
             return obj;
         }

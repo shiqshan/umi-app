@@ -168,6 +168,7 @@
         }
         console.log(score);
     }
+
     // getMaxScore([3, 7, 40, 10, 60]);
 
     /**
@@ -189,6 +190,7 @@
         let minkey = Object.keys(map).sort((a, b) => a - b)[0];
         return map[minkey];
     }
+
     // console.log(getSchopol([0, 20, 40, 10, 30]));
 
     /**
@@ -202,20 +204,52 @@
         const map = new Map();
         arr.forEach(i => {
             if (map.has(i)) {
-                map.set(i, map.get(i) + 1)
+                map.set(i, map.get(i) + 1);
             } else {
-                map.set(i, 1)
+                map.set(i, 1);
             }
-        })
+        });
         let max = 0;
         console.log(map);
         for (const [key, val] of map) {
             if (val > max) {
-                max = val
+                max = val;
             }
         }
-        return  max;
+        return max;
     }
+
     // console.log(findCarNum([0,1,1,2], 4));
+
+    //对象深克隆
+    function deepClone(value) {
+        //Function Object Array other
+        if (value instanceof Function) {
+            return value;
+        } else if (value instanceof Object) {
+            let obj = {};
+            for (const key in value) {
+                obj[key] = deepClone(value[key]);
+            }
+            return obj;
+        } else if (value instanceof Array) {
+            let arr = [];
+            value.forEach(item => {
+                arr.push(deepClone(item));
+            });
+            return arr;
+        } else {
+            return value;
+        }
+    }
+    // const a = { a: 1, b: [1, 2, { name: '222' }] };
+    // const b = deepClone(a);
+
+    //如何判断对象为空
+    function isEmpty(obj) {
+        console.log(obj);
+        return Reflect.ownKeys(obj).length === 0;
+    }
+    // console.log(isEmpty({[Symbol('1')]: 1}))
 </script>
 </html>
