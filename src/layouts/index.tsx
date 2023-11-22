@@ -4,7 +4,7 @@ import styles from './index.less';
 import global from '../global.less';
 import HeaderUser from '@/components/HeaderUser';
 import MyMenu, { BreadcrumbConfig } from '@/menu';
-import { IRouteComponentProps, Link } from 'umi';
+import { IRouteComponentProps } from 'umi';
 import { connect } from '@@/plugin-dva/exports';
 import { Dispatch } from '@@/plugin-dva/connect';
 import { PathEnum } from '@/routes';

@@ -143,8 +143,8 @@ const List = () => {
         <div className={'global_content'}>
             <div className={styles.form}>
                 <Form form={form} layout={'inline'}>
-                    <Form.Item label="姓名" name="name">
-                        <Input width={200} allowClear placeholder={'请输入姓名'} />
+                    <Form.Item label="账号" name="username">
+                        <Input width={200} allowClear placeholder={'请输入账号'} />
                     </Form.Item>
                     <Form.Item label="性别" name="sex">
                         <Select style={{ width: 200 }} placeholder={'请选择'} allowClear>
